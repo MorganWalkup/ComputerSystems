@@ -16,49 +16,17 @@ RJMP INITIALIZE				; Jump to INITIALIZE
 RJMP PCINT					; Jump to PCINT routine
 
 INITIALIZE:
+	; Initialize registers
 	LDI R17, 0xFF			; Load 0xFF into R17
 	OUT DDRB, R17			; Set PORTB as output
 	OUT DDRD, R17			; Set PORTD as output
 	LDI R17, 0x00			; Load 0x00 into R17
 	OUT DDRC, R17			; Set PORTC as input
+
+	; Set up LCD
+	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
 	CBI PORTB, 0			; Select Register 0 of the display
-
-	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
-	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
-
-	; Selecting CRA and components
-	CBI PORTB, 1			; Clear select bit 2 to select CRA
-	SBI PORTB, 0			; Also selects CRA with previous line
-	LDI R18, 0x00			; Sets CRA bit 2, to access DDRA
-	OUT PORTD, R18			; Writes the data to the PIA
-	
-	CBI PORTB, 0			; Clears bit 1 to select DDRA
-	LDI R18, 0xFF			; Sets DDRA to output
-	OUT PORTD, R18			; Writes the data to the PIA
-	
-	SBI PORTB, 0			; Selects CRA again
-	LDI R18, 0x04			; Sets DRA
-	OUT PORTD, R18			; Writes the data to the PIA
-
-	; Selecting CRB and components
-	SBI PORTB, 1			; Set select bit 2 to select CRB
-	SBI PORTB, 0			; Also selects CRB with previous line
-	LDI R18, 0x00			; Sets CRB bit 2, to access DDRB
-	OUT PORTD, R18			; Writes the data to the PIA
-
-	CBI PORTB, 0			; Clears bit 1 to select DDRB
-	LDI R18, 0xFF			; Sets DDRB to output
-	OUT PORTD, R18			; Writes the data to the PIA
-
-	SBI PORTB, 0			; Selects CRB again
-	LDI R18, 0x04			; Sets DRB
-	OUT PORTD, R18			; Writes the data to the PIA
-
-	SEI						; Enable external interrrupts
-	LDI R17, 0x02			; Loads 2 into register 17
-	STS 0x68, R17			; Store R17's value into memory to enable pcint
-	LDI R17, 0x20			; Loads 0x20 into R17
-	STS 0x6C, R17			; Store R17's value into memory to enable pcint
 
 	LDI R16, 0x01			; Load 0x01 into R16 (Clear Display)
 	RCALL OUTCOMM			; Call the OUTCOMM subroutine to output this command to the display
@@ -81,6 +49,58 @@ INITIALIZE:
 	LDI R16, 0x02			; Load 0x02 into R16 (Cursor Home)
 	RCALL OUTCOMM			; Call the OUTCOMM subroutine
 
+	; Set up pin change interrupts
+	SEI						; Enable external interrrupts
+	LDI R17, 0x02			; Loads 2 into register 17
+	STS 0x68, R17			; Store R17's value into memory to enable pcint
+	LDI R17, 0x20			; Loads 0x20 into R17
+	STS 0x6C, R17			; Store R17's value into memory to enable pcint
+
+	; Select PIA
+	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
+	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
+
+	; Selecting CRA and components
+	CBI PORTB, 1			; Clear select bit 2 to select CRA
+	SBI PORTB, 0			; Also selects CRA with previous line
+	LDI R18, 0x00			; Sets CRA bit 2, to access DDRA
+	OUT PORTD, R18			; Writes the data to the PIA
+	RCALL EXEC
+
+	CBI PORTB, 0			; Clears bit 1 to select DDRA
+	LDI R18, 0xFF			; Sets DDRA to output
+	OUT PORTD, R18			; Writes the data to the PIA
+	RCALL EXEC
+
+	SBI PORTB, 0			; Selects CRA again
+	LDI R18, 0x04			; Sets DRA
+	OUT PORTD, R18			; Writes the data to the PIA
+	RCALL EXEC
+
+	; Selecting CRB and components
+	SBI PORTB, 1			; Set select bit 2 to select CRB
+	SBI PORTB, 0			; Also selects CRB with previous line
+	LDI R18, 0x00			; Sets CRB bit 2, to access DDRB
+	OUT PORTD, R18			; Writes the data to the PIA
+	RCALL EXEC
+
+	CBI PORTB, 0			; Clears bit 1 to select DDRB
+	LDI R18, 0xFF			; Sets DDRB to output
+	OUT PORTD, R18			; Writes the data to the PIA
+	RCALL EXEC
+
+	SBI PORTB, 0			; Selects CRB again
+	LDI R18, 0x04			; Sets DRB
+	OUT PORTD, R18			; Writes the data to the PIA
+	RCALL EXEC
+
+PIATEST:
+	SBI PORTB, 0			; Selects CRA again
+	LDI R18, 0x04			; Sets DRA
+	OUT PORTD, R18			; Writes the data to the PIA
+	RCALL EXEC
+
+
 FINISH:
 	NOP						; Pause for one cycle
 	RJMP FINISH				; Jump back to FINISH
@@ -88,7 +108,9 @@ FINISH:
 ;=========================================================================
 
 OUTCOMM:
-	CBI PORTB, 0			; Select Register 0 of the display
+	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
+	CBI PORTB, 0			; Select Register 0 of the display 
 	LDI R17, 0x00			; Load 0x00 into R17
 	OUT DDRD, R17			; Set PIND as input
 	RCALL CHECKBUSY			; Call the checkbusy routine
@@ -99,6 +121,8 @@ OUTCOMM:
 	RET						; Return to the origin of subroutine call
 
 OUTCHAR:
+	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
 	RCALL CHECKBUSY			; Call the CHECKBUSY subroutine
 	CBI PORTB, 2			; Set E = 0
 	CBI PORTB, 1			; Set R/!W = 0
@@ -108,6 +132,8 @@ OUTCHAR:
 	RET						; Return to the origin of the subroutine call
 
 CHECKBUSY:
+	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
 	CBI PORTB, 2			; Set E = 0
 	SBI PORTB, 1			; Set R/!W = 1
 	CBI PORTB, 0			; Set RS = 0
