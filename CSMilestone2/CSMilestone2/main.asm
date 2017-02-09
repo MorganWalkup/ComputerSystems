@@ -26,6 +26,34 @@ INITIALIZE:
 	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
 	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
 
+	; Selecting CRA and components
+	CBI PORTB, 1			; Clear select bit 2 to select CRA
+	SBI PORTB, 0			; Also selects CRA with previous line
+	LDI R18, 0x00			; Sets CRA bit 2, to access DDRA
+	OUT PORTD, R18			; Writes the data to the PIA
+	
+	CBI PORTB, 0			; Clears bit 1 to select DDRA
+	LDI R18, 0xFF			; Sets DDRA to output
+	OUT PORTD, R18			; Writes the data to the PIA
+	
+	SBI PORTB, 0			; Selects CRA again
+	LDI R18, 0x04			; Sets DRA
+	OUT PORTD, R18			; Writes the data to the PIA
+
+	; Selecting CRB and components
+	SBI PORTB, 1			; Set select bit 2 to select CRB
+	SBI PORTB, 0			; Also selects CRB with previous line
+	LDI R18, 0x00			; Sets CRB bit 2, to access DDRB
+	OUT PORTD, R18			; Writes the data to the PIA
+
+	CBI PORTB, 0			; Clears bit 1 to select DDRB
+	LDI R18, 0xFF			; Sets DDRB to output
+	OUT PORTD, R18			; Writes the data to the PIA
+
+	SBI PORTB, 0			; Selects CRB again
+	LDI R18, 0x04			; Sets DRB
+	OUT PORTD, R18			; Writes the data to the PIA
+
 	SEI						; Enable external interrrupts
 	LDI R17, 0x02			; Loads 2 into register 17
 	STS 0x68, R17			; Store R17's value into memory to enable pcint
