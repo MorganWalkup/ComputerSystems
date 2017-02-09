@@ -23,8 +23,8 @@ INITIALIZE:
 	OUT DDRC, R17			; Set PORTC as input
 	CBI PORTB, 0			; Select Register 0 of the display
 
-	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
-	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
+	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
+	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
 
 	SEI						; Enable external interrrupts
 	LDI R17, 0x02			; Loads 2 into register 17
