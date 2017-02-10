@@ -56,48 +56,51 @@ INITIALIZE:
 	LDI R17, 0x20			; Loads 0x20 into R17
 	STS 0x6C, R17			; Store R17's value into memory to enable pcint
 
+PIAINIT:
 	; Select PIA
 	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
 	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
 
-	; Selecting CRA and components
-	CBI PORTB, 1			; Clear select bit 2 to select CRA
-	SBI PORTB, 0			; Also selects CRA with previous line
-	LDI R18, 0x00			; Sets CRA bit 2, to access DDRA
+	; Set Bit 2 of CRA to 0
+	CBI PORTB, 1			; Clear RS1 to select CRA
+	SBI PORTB, 0			; Set RS0 to select CRA with previous line
+	LDI R18, 0x00			; Clears CRA bit 2, to access DDRA
 	OUT PORTD, R18			; Writes the data to the PIA
 	RCALL EXEC
-
-	CBI PORTB, 0			; Clears bit 1 to select DDRA
+	; Set DDRA to 0xFF
+	CBI PORTB, 0			; Clears RS0 select DDRA
 	LDI R18, 0xFF			; Sets DDRA to output
 	OUT PORTD, R18			; Writes the data to the PIA
 	RCALL EXEC
-
-	SBI PORTB, 0			; Selects CRA again
-	LDI R18, 0x04			; Sets DRA
+	; Set bit 2 of CRA to 1
+	SBI PORTB, 0			; Set RS0 to select CRA again
+	LDI R18, 0x04			; Sets CRA bit 2, to access DRA
 	OUT PORTD, R18			; Writes the data to the PIA
 	RCALL EXEC
 
-	; Selecting CRB and components
-	SBI PORTB, 1			; Set select bit 2 to select CRB
-	SBI PORTB, 0			; Also selects CRB with previous line
-	LDI R18, 0x00			; Sets CRB bit 2, to access DDRB
+	; Set bit 2 of CRB to 0
+	SBI PORTB, 1			; Set RS1 to select CRB
+	SBI PORTB, 0			; Set RSO to select CRB with previous line
+	LDI R18, 0x00			; Clears CRB bit 2, to access DDRB
 	OUT PORTD, R18			; Writes the data to the PIA
 	RCALL EXEC
-
-	CBI PORTB, 0			; Clears bit 1 to select DDRB
+	; Set DDRB to 0xFF
+	CBI PORTB, 0			; Clears RS0 to select DDRB
 	LDI R18, 0xFF			; Sets DDRB to output
 	OUT PORTD, R18			; Writes the data to the PIA
 	RCALL EXEC
-
-	SBI PORTB, 0			; Selects CRB again
-	LDI R18, 0x04			; Sets DRB
+	; Set bit 2 of CRB to 1
+	SBI PORTB, 0			; Set RS0 to select CRB again
+	LDI R18, 0x04			; Set bit 2 of CRB to select DRB
 	OUT PORTD, R18			; Writes the data to the PIA
 	RCALL EXEC
 
 PIATEST:
-	SBI PORTB, 0			; Selects CRA again
-	LDI R18, 0x04			; Sets DRA
-	OUT PORTD, R18			; Writes the data to the PIA
+	CBI PORTB, 0			; Selects Data Registers
+
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x55			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
 	RCALL EXEC
 
 
