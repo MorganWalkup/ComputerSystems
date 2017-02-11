@@ -66,34 +66,34 @@ PIAINIT:
 	SBI PORTB, 0			; Set RS0 to select CRA with previous line
 	LDI R18, 0x00			; Clears CRA bit 2, to access DDRA
 	OUT PORTD, R18			; Writes the data to the PIA
-	RCALL EXEC
+	RCALL EXEC				; Execute Instruction
 	; Set DDRA to 0xFF
 	CBI PORTB, 0			; Clears RS0 select DDRA
 	LDI R18, 0xFF			; Sets DDRA to output
 	OUT PORTD, R18			; Writes the data to the PIA
-	RCALL EXEC
+	RCALL EXEC				; Execute Instruction
 	; Set bit 2 of CRA to 1
 	SBI PORTB, 0			; Set RS0 to select CRA again
 	LDI R18, 0x04			; Sets CRA bit 2, to access DRA
 	OUT PORTD, R18			; Writes the data to the PIA
-	RCALL EXEC
+	RCALL EXEC				; Execute Instruction
 
 	; Set bit 2 of CRB to 0
 	SBI PORTB, 1			; Set RS1 to select CRB
 	SBI PORTB, 0			; Set RSO to select CRB with previous line
 	LDI R18, 0x00			; Clears CRB bit 2, to access DDRB
 	OUT PORTD, R18			; Writes the data to the PIA
-	RCALL EXEC
+	RCALL EXEC				; Execute Instruction
 	; Set DDRB to 0xFF
 	CBI PORTB, 0			; Clears RS0 to select DDRB
 	LDI R18, 0xFF			; Sets DDRB to output
 	OUT PORTD, R18			; Writes the data to the PIA
-	RCALL EXEC
+	RCALL EXEC				; Execute Instruction
 	; Set bit 2 of CRB to 1
 	SBI PORTB, 0			; Set RS0 to select CRB again
 	LDI R18, 0x04			; Set bit 2 of CRB to select DRB
 	OUT PORTD, R18			; Writes the data to the PIA
-	RCALL EXEC
+	RCALL EXEC				; Execute Instruction
 
 PIATEST:
 	CBI PORTB, 0			; Selects Data Registers
@@ -101,50 +101,50 @@ PIATEST:
 	CBI PORTB, 1			; Selects DRA
 	LDI R18, 0x00			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC
-	RCALL DELAY
+	RCALL EXEC				; Execute Instruction
+	RCALL DELAY				; Delay (So this change can be seen on the logic analyzer)
 
 	SBI PORTB, 1			; Selects DRB
 	LDI R18, 0x00			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC
-	RCALL DELAY
+	RCALL EXEC				; Execute Instruction
+	RCALL DELAY				; Delay (So this change can be seen on the logic analyzer)
 
 	CBI PORTB, 1			; Selects DRA
 	LDI R18, 0x55			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC
-	RCALL DELAY
+	RCALL EXEC				; Execute Instruction
+	RCALL DELAY				; Delay (So this change can be seen on the logic analyzer)
 
 	SBI PORTB, 1			; Selects DRB
 	LDI R18, 0x55			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC
-	RCALL DELAY
+	RCALL EXEC				; Execute Instruction
+	RCALL DELAY				; Delay (So this change can be seen on the logic analyzer)
 
 	CBI PORTB, 1			; Selects DRA
 	LDI R18, 0xFF			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC
-	RCALL DELAY
+	RCALL EXEC				; Execute Instruction
+	RCALL DELAY				; Delay (So this change can be seen on the logic analyzer)
 
 	SBI PORTB, 1			; Selects DRB
 	LDI R18, 0xFF			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC
+	RCALL EXEC				; Execute Instruction
 	RCALL DELAY
 
 	CBI PORTB, 1			; Selects DRA
 	LDI R18, 0xAA			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC
-	RCALL DELAY
+	RCALL EXEC				; Execute Instruction
+	RCALL DELAY				; Delay (So this change can be seen on the logic analyzer)
 
 	SBI PORTB, 1			; Selects DRB
 	LDI R18, 0xAA			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC
-	RCALL DELAY
+	RCALL EXEC				; Execute Instruction
+	RCALL DELAY				; Delay (So this change can be seen on the logic analyzer)
 
 FINISH:
 	NOP						; Pause for one cycle
