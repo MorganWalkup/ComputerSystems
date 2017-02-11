@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm Fri Feb 10 14:20:57 2017
+AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm Fri Feb 10 21:08:11 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
@@ -999,7 +999,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 000005 c003                      RJMP INITIALIZE				; Jump to INITIALIZE
 000006 c002                      RJMP INITIALIZE				; Jump to INITIALIZE
 000007 c001                      RJMP INITIALIZE				; Jump to INITIALIZE
-000008 c090                      RJMP PCINT					; Jump to PCINT routine
+000008 c0b2                      RJMP PCINT					; Jump to PCINT routine
                                  
                                  INITIALIZE:
                                  	; Initialize registers
@@ -1015,25 +1015,25 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 000010 9828                      	CBI PORTB, 0			; Select Register 0 of the display
                                  
 000011 e001                      	LDI R16, 0x01			; Load 0x01 into R16 (Clear Display)
-000012 d038                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine to output this command to the display
+000012 d05a                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine to output this command to the display
                                  
 000013 e300                      	LDI R16, 0x30			; Load 0x30 into R16 
-000014 d036                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
+000014 d058                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
                                  
 000015 e008                      	LDI R16, 0x08			; Load 0x08 into R16
-000016 d034                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
+000016 d056                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
                                  
 000017 e006                      	LDI R16, 0x06			; Load 0x06 into R16
-000018 d032                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
+000018 d054                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
                                  
 000019 e30c                      	LDI R16, 0x3C			; Load 0x3C into R16
-00001a d030                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
+00001a d052                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
                                  
 00001b e00f                      	LDI R16, 0x0F			; Load 0x0F into R16 (Turns on Display and Cursor Blink)
-00001c d02e                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
+00001c d050                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
                                  
 00001d e002                      	LDI R16, 0x02			; Load 0x02 into R16 (Cursor Home)
-00001e d02c                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
+00001e d04e                      	RCALL OUTCOMM			; Call the OUTCOMM subroutine
                                  
                                  	; Set up pin change interrupts
 00001f 9478                      	SEI						; Enable external interrrupts
@@ -1052,262 +1052,302 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 000029 9a28                      	SBI PORTB, 0			; Set RS0 to select CRA with previous line
 00002a e020                      	LDI R18, 0x00			; Clears CRA bit 2, to access DDRA
 00002b b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-00002c d047                      	RCALL EXEC
+00002c d069                      	RCALL EXEC
                                  	; Set DDRA to 0xFF
 00002d 9828                      	CBI PORTB, 0			; Clears RS0 select DDRA
-00002e e525                      	LDI R18, 0x55			; Sets DDRA to output
+00002e ef2f                      	LDI R18, 0xFF			; Sets DDRA to output
 00002f b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-000030 d043                      	RCALL EXEC
+000030 d065                      	RCALL EXEC
                                  	; Set bit 2 of CRA to 1
 000031 9a28                      	SBI PORTB, 0			; Set RS0 to select CRA again
 000032 e024                      	LDI R18, 0x04			; Sets CRA bit 2, to access DRA
 000033 b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-000034 d03f                      	RCALL EXEC
+000034 d061                      	RCALL EXEC
                                  
                                  	; Set bit 2 of CRB to 0
 000035 9a29                      	SBI PORTB, 1			; Set RS1 to select CRB
 000036 9a28                      	SBI PORTB, 0			; Set RSO to select CRB with previous line
 000037 e020                      	LDI R18, 0x00			; Clears CRB bit 2, to access DDRB
 000038 b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-000039 d03a                      	RCALL EXEC
+000039 d05c                      	RCALL EXEC
                                  	; Set DDRB to 0xFF
 00003a 9828                      	CBI PORTB, 0			; Clears RS0 to select DDRB
 00003b ef2f                      	LDI R18, 0xFF			; Sets DDRB to output
 00003c b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-00003d d036                      	RCALL EXEC
+00003d d058                      	RCALL EXEC
                                  	; Set bit 2 of CRB to 1
 00003e 9a28                      	SBI PORTB, 0			; Set RS0 to select CRB again
 00003f e024                      	LDI R18, 0x04			; Set bit 2 of CRB to select DRB
 000040 b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-000041 d032                      	RCALL EXEC
+000041 d054                      	RCALL EXEC
                                  
                                  PIATEST:
 000042 9828                      	CBI PORTB, 0			; Selects Data Registers
                                  
 000043 9829                      	CBI PORTB, 1			; Selects DRA
-000044 e525                      	LDI R18, 0x55			; Loads value into R18
+000044 e020                      	LDI R18, 0x00			; Loads value into R18
 000045 b92b                      	OUT PORTD, R18			; Writes the data to DRA of the PIA
-000046 982a                      	CBI PORTB,2
-000047 9a2a                      	SBI PORTB,2
-000048 982a                      	CBI PORTB,2
+000046 d04f                      	RCALL EXEC
+000047 d044                      	RCALL DELAY
                                  
+000048 9a29                      	SBI PORTB, 1			; Selects DRB
+000049 e020                      	LDI R18, 0x00			; Loads value into R18
+00004a b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
+00004b d04a                      	RCALL EXEC
+00004c d03f                      	RCALL DELAY
+                                 
+00004d 9829                      	CBI PORTB, 1			; Selects DRA
+00004e e525                      	LDI R18, 0x55			; Loads value into R18
+00004f b92b                      	OUT PORTD, R18			; Writes the data to DRA of the PIA
+000050 d045                      	RCALL EXEC
+000051 d03a                      	RCALL DELAY
+                                 
+000052 9a29                      	SBI PORTB, 1			; Selects DRB
+000053 e525                      	LDI R18, 0x55			; Loads value into R18
+000054 b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
+000055 d040                      	RCALL EXEC
+000056 d035                      	RCALL DELAY
+                                 
+000057 9829                      	CBI PORTB, 1			; Selects DRA
+000058 ef2f                      	LDI R18, 0xFF			; Loads value into R18
+000059 b92b                      	OUT PORTD, R18			; Writes the data to DRA of the PIA
+00005a d03b                      	RCALL EXEC
+00005b d030                      	RCALL DELAY
+                                 
+00005c 9a29                      	SBI PORTB, 1			; Selects DRB
+00005d ef2f                      	LDI R18, 0xFF			; Loads value into R18
+00005e b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
+00005f d036                      	RCALL EXEC
+000060 d02b                      	RCALL DELAY
+                                 
+000061 9829                      	CBI PORTB, 1			; Selects DRA
+000062 ea2a                      	LDI R18, 0xAA			; Loads value into R18
+000063 b92b                      	OUT PORTD, R18			; Writes the data to DRA of the PIA
+000064 d031                      	RCALL EXEC
+000065 d026                      	RCALL DELAY
+                                 
+000066 9a29                      	SBI PORTB, 1			; Selects DRB
+000067 ea2a                      	LDI R18, 0xAA			; Loads value into R18
+000068 b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
+000069 d02c                      	RCALL EXEC
+00006a d021                      	RCALL DELAY
                                  
                                  FINISH:
-000049 0000                      	NOP						; Pause for one cycle
-00004a cffe                      	RJMP FINISH				; Jump back to FINISH
+00006b 0000                      	NOP						; Pause for one cycle
+00006c cffe                      	RJMP FINISH				; Jump back to FINISH
                                  
                                  ;=========================================================================
                                  
                                  OUTCOMM:
-00004b 9a2b                      	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
-00004c 9a2c                      	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
-00004d 9828                      	CBI PORTB, 0			; Select Register 0 of the display 
-00004e e010                      	LDI R17, 0x00			; Load 0x00 into R17
-00004f b91a                      	OUT DDRD, R17			; Set PIND as input
-000050 d00e                      	RCALL CHECKBUSY			; Call the checkbusy routine
-000051 ef1f                      	LDI R17, 0xFF			; Load 0xFF into R17
-000052 b91a                      	OUT DDRD, R17			; Set PORTD as output
-000053 b90b                      	OUT PORTD, R16			; OUTPUT the contents of R16 to PORTD
-000054 d01f                      	RCALL EXEC				; Call the EXEC subroutine 
-000055 9508                      	RET						; Return to the origin of subroutine call
+00006d 9a2b                      	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+00006e 9a2c                      	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
+00006f 9828                      	CBI PORTB, 0			; Select Register 0 of the display 
+000070 e010                      	LDI R17, 0x00			; Load 0x00 into R17
+000071 b91a                      	OUT DDRD, R17			; Set PIND as input
+000072 d00e                      	RCALL CHECKBUSY			; Call the checkbusy routine
+000073 ef1f                      	LDI R17, 0xFF			; Load 0xFF into R17
+000074 b91a                      	OUT DDRD, R17			; Set PORTD as output
+000075 b90b                      	OUT PORTD, R16			; OUTPUT the contents of R16 to PORTD
+000076 d01f                      	RCALL EXEC				; Call the EXEC subroutine 
+000077 9508                      	RET						; Return to the origin of subroutine call
                                  
                                  OUTCHAR:
-000056 9a2b                      	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
-000057 9a2c                      	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
-000058 d006                      	RCALL CHECKBUSY			; Call the CHECKBUSY subroutine
-000059 982a                      	CBI PORTB, 2			; Set E = 0
-00005a 9829                      	CBI PORTB, 1			; Set R/!W = 0
-00005b 9a28                      	SBI PORTB, 0			; Set RS = 1
-00005c b90b                      	OUT PORTD, R16			; Output R16 to PORTD
-00005d d016                      	RCALL EXEC				; Call the EXEC subroutine 
-00005e 9508                      	RET						; Return to the origin of the subroutine call
+000078 9a2b                      	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+000079 9a2c                      	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
+00007a d006                      	RCALL CHECKBUSY			; Call the CHECKBUSY subroutine
+00007b 982a                      	CBI PORTB, 2			; Set E = 0
+00007c 9829                      	CBI PORTB, 1			; Set R/!W = 0
+00007d 9a28                      	SBI PORTB, 0			; Set RS = 1
+00007e b90b                      	OUT PORTD, R16			; Output R16 to PORTD
+00007f d016                      	RCALL EXEC				; Call the EXEC subroutine 
+000080 9508                      	RET						; Return to the origin of the subroutine call
                                  
                                  CHECKBUSY:
-00005f 9a2b                      	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
-000060 9a2c                      	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
-000061 982a                      	CBI PORTB, 2			; Set E = 0
-000062 9a29                      	SBI PORTB, 1			; Set R/!W = 1
-000063 9828                      	CBI PORTB, 0			; Set RS = 0
-000064 9a2a                      	SBI PORTB, 2			; Set E = 1
-000065 d004                      	RCALL DELAY				; Call the DELAY subroutine
-000066 982a                      	CBI PORTB, 2			; Set E = 0
-000067 9829                      	CBI PORTB, 1			; Set R/!W = 0
-000068 9828                      	CBI PORTB, 0			; Set RS = 0
-000069 9508                      	RET						; Return to origin of subroutine call
+000081 9a2b                      	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+000082 9a2c                      	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
+000083 982a                      	CBI PORTB, 2			; Set E = 0
+000084 9a29                      	SBI PORTB, 1			; Set R/!W = 1
+000085 9828                      	CBI PORTB, 0			; Set RS = 0
+000086 9a2a                      	SBI PORTB, 2			; Set E = 1
+000087 d004                      	RCALL DELAY				; Call the DELAY subroutine
+000088 982a                      	CBI PORTB, 2			; Set E = 0
+000089 9829                      	CBI PORTB, 1			; Set R/!W = 0
+00008a 9828                      	CBI PORTB, 0			; Set RS = 0
+00008b 9508                      	RET						; Return to origin of subroutine call
                                  
                                  DELAY:
-00006a e071                      	LDI R23, 1 				; Load 255 into R23
-00006b ef6f                      LP3:LDI R22, 255			; Load 255 into R22
-00006c ef5f                      LP2:LDI R21, 255			; Load 255 into R21
-00006d 955a                      LP1:DEC R21					; Decrement R21
-00006e f7f1                      	BRNE LP1				; Branch to LP1 if R21 != 0
-00006f 956a                      	DEC R22					; Decrement R22
-000070 f7d9                      	BRNE LP2				; Branch to LP2 if R22 != 0
-000071 957a                      	DEC R23					; Decrement R23
-000072 f7c1                      	BRNE LP3				; Branch to LP3 if R23 != 0
-000073 9508                      	RET						; Return to origin of subroutine calls
+00008c e674                      	LDI R23, 100			; Load 255 into R23
+00008d ef6f                      LP3:LDI R22, 255			; Load 255 into R22
+00008e ef5f                      LP2:LDI R21, 255			; Load 255 into R21
+00008f 955a                      LP1:DEC R21					; Decrement R21
+000090 f7f1                      	BRNE LP1				; Branch to LP1 if R21 != 0
+000091 956a                      	DEC R22					; Decrement R22
+000092 f7d9                      	BRNE LP2				; Branch to LP2 if R22 != 0
+000093 957a                      	DEC R23					; Decrement R23
+000094 f7c1                      	BRNE LP3				; Branch to LP3 if R23 != 0
+000095 9508                      	RET						; Return to origin of subroutine calls
                                  
                                  EXEC:
-000074 9a2a                      	SBI PORTB, 2			; Set E=1
-000075 0000                      	NOP						; Wait for one cycle
-000076 0000                      	NOP						; Wait for one cycle
-000077 0000                      	NOP						; Wait for one cycle
-000078 0000                      	NOP						; Wait for one cycle
-000079 0000                      	NOP						; Wait for one cycle
-00007a 0000                      	NOP						; Wait for one cycle
-00007b 0000                      	NOP						; Wait for one cycle
-00007c 0000                      	NOP						; Wait for one cycle
-00007d 982a                      	CBI PORTB, 2			; Set E=0
-00007e 0000                      	NOP						; Wait for one cycle
-00007f 0000                      	NOP						; Wait for one cycle
-000080 0000                      	NOP						; Wait for one cycle
-000081 0000                      	NOP						; Wait for one cycle
-000082 0000                      	NOP						; Wait for one cycle
-000083 0000                      	NOP						; Wait for one cycle
-000084 0000                      	NOP						; Wait for one cycle
-000085 0000                      	NOP						; Wait for one cycle
-000086 9508                      	RET						; Return to origin of subroutine call
+000096 9a2a                      	SBI PORTB, 2			; Set E=1
+000097 0000                      	NOP						; Wait for one cycle
+000098 0000                      	NOP						; Wait for one cycle
+000099 0000                      	NOP						; Wait for one cycle
+00009a 0000                      	NOP						; Wait for one cycle
+00009b 0000                      	NOP						; Wait for one cycle
+00009c 0000                      	NOP						; Wait for one cycle
+00009d 0000                      	NOP						; Wait for one cycle
+00009e 0000                      	NOP						; Wait for one cycle
+00009f 982a                      	CBI PORTB, 2			; Set E=0
+0000a0 0000                      	NOP						; Wait for one cycle
+0000a1 0000                      	NOP						; Wait for one cycle
+0000a2 0000                      	NOP						; Wait for one cycle
+0000a3 0000                      	NOP						; Wait for one cycle
+0000a4 0000                      	NOP						; Wait for one cycle
+0000a5 0000                      	NOP						; Wait for one cycle
+0000a6 0000                      	NOP						; Wait for one cycle
+0000a7 0000                      	NOP						; Wait for one cycle
+0000a8 9508                      	RET						; Return to origin of subroutine call
                                  
                                  NEWLINE:
-000087 e200                      	LDI R16, 0b00100000		; Load the value for " " into R16
-000088 dfcd                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
-000089 954a                      	DEC R20					; Decrement R20
-00008a f7e1                      	BRNE NEWLINE			; If R20 != 0, call NEWLINE again
-00008b 9508                      	RET						; Return to the origin of the subroutine call
+0000a9 e200                      	LDI R16, 0b00100000		; Load the value for " " into R16
+0000aa dfcd                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
+0000ab 954a                      	DEC R20					; Decrement R20
+0000ac f7e1                      	BRNE NEWLINE			; If R20 != 0, call NEWLINE again
+0000ad 9508                      	RET						; Return to the origin of the subroutine call
                                  
                                  REALCHECKBUSY:
-00008c 982a                      	CBI PORTB, 2			; Set E = 0
-00008d 9a29                      	SBI PORTB, 1			; Set R/!W = 1
-00008e 9828                      	CBI PORTB, 0			; Set RS = 0
-00008f 9a2a                      	SBI PORTB, 2			; Set E = 1
-000090 0000                      CHK:NOP						; Wait for one cycle
-000091 0000                      	NOP						; Wait for one cycle
-000092 0000                      	NOP						; Wait for one cycle
-000093 0000                      	NOP						; Wait for one cycle
-000094 0000                      	NOP						; Wait for one cycle
-000095 994f                      	SBIC PIND, 7			; Test PORTD Bit 7. If high, display is busy
-000096 cff9                      	RJMP CHK				; Jump to REALCHECKBUSY
-000097 982a                      	CBI PORTB, 2			; Set E = 0
-000098 9508                      	RET						; Return to origin of subroutine call
+0000ae 982a                      	CBI PORTB, 2			; Set E = 0
+0000af 9a29                      	SBI PORTB, 1			; Set R/!W = 1
+0000b0 9828                      	CBI PORTB, 0			; Set RS = 0
+0000b1 9a2a                      	SBI PORTB, 2			; Set E = 1
+0000b2 0000                      CHK:NOP						; Wait for one cycle
+0000b3 0000                      	NOP						; Wait for one cycle
+0000b4 0000                      	NOP						; Wait for one cycle
+0000b5 0000                      	NOP						; Wait for one cycle
+0000b6 0000                      	NOP						; Wait for one cycle
+0000b7 994f                      	SBIC PIND, 7			; Test PORTD Bit 7. If high, display is busy
+0000b8 cff9                      	RJMP CHK				; Jump to REALCHECKBUSY
+0000b9 982a                      	CBI PORTB, 2			; Set E = 0
+0000ba 9508                      	RET						; Return to origin of subroutine call
                                  
                                  PCINT:
-000099 9590                      	COM R25					; Complement the redundancy register
-00009a ff90                      	SBRS R25, 0				; Skip next line if R25 bit 0 is set
-00009b 9518                      	RETI					; Return from interrupt
-00009c b106                      	IN R16, PINC			; Put data from PINC into R16
-00009d 710f                      	ANDI R16, 0x1F			; AND R16 with 0x1F
-00009e 3102                      	CPI R16, 0x12			; Compare R16 with the hex value for the "shift" key
-00009f f0a9                      	BREQ SHIFT				; If R16 = Shift, branch to SHIFT routine
-0000a0 3103                      	CPI R16, 0x13			; Compare R16 with the hex value for the "mode" key
-0000a1 f0a9                      	BREQ MODE				; If R16 = Mode, branch to MODE routine
-0000a2 c000                      	RJMP CHARSELECT			; Jump to CHARSELECT
+0000bb 9590                      	COM R25					; Complement the redundancy register
+0000bc ff90                      	SBRS R25, 0				; Skip next line if R25 bit 0 is set
+0000bd 9518                      	RETI					; Return from interrupt
+0000be b106                      	IN R16, PINC			; Put data from PINC into R16
+0000bf 710f                      	ANDI R16, 0x1F			; AND R16 with 0x1F
+0000c0 3102                      	CPI R16, 0x12			; Compare R16 with the hex value for the "shift" key
+0000c1 f0a9                      	BREQ SHIFT				; If R16 = Shift, branch to SHIFT routine
+0000c2 3103                      	CPI R16, 0x13			; Compare R16 with the hex value for the "mode" key
+0000c3 f0a9                      	BREQ MODE				; If R16 = Mode, branch to MODE routine
+0000c4 c000                      	RJMP CHARSELECT			; Jump to CHARSELECT
                                  
                                  CHARSELECT:
-0000a3 3f8f                      	CPI R24, 0xFF			; Compare Shift Register to 0xFF
-0000a4 f041                      	BREQ SHIFTSELECT		; If Shift Register = 0xFF, branch to SHIFTSELECT
-0000a5 e0f2                      	LDI ZH, high(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000a6 e0e0                      	LDI ZL, low(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000a7 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
-0000a8 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
-0000a9 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
-0000aa 2d00                      	MOV R16, R0				; Load the value for R0 into R16
-0000ab dfaa                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
-0000ac 9518                      	RETI					; Return from the interrupt
+0000c5 3f8f                      	CPI R24, 0xFF			; Compare Shift Register to 0xFF
+0000c6 f041                      	BREQ SHIFTSELECT		; If Shift Register = 0xFF, branch to SHIFTSELECT
+0000c7 e0f2                      	LDI ZH, high(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000c8 e0e0                      	LDI ZL, low(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000c9 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
+0000ca 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
+0000cb 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
+0000cc 2d00                      	MOV R16, R0				; Load the value for R0 into R16
+0000cd dfaa                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
+0000ce 9518                      	RETI					; Return from the interrupt
                                  
                                  SHIFTSELECT:
-0000ad e0f4                      	LDI ZH, high(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000ae e0e0                      	LDI ZL, low(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000af 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
-0000b0 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
-0000b1 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
-0000b2 2d00                      	MOV R16, R0				; Load the value for R0 into R16
-0000b3 dfa2                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
-0000b4 9518                      	RETI					; Return from the interrupt
+0000cf e0f4                      	LDI ZH, high(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000d0 e0e0                      	LDI ZL, low(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000d1 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
+0000d2 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
+0000d3 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
+0000d4 2d00                      	MOV R16, R0				; Load the value for R0 into R16
+0000d5 dfa2                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
+0000d6 9518                      	RETI					; Return from the interrupt
                                  
                                  SHIFT:
-0000b5 9580                      	COM R24					; Complement the R1 (shift) register
-0000b6 9518                      	RETI					; Return from the interrupt
+0000d7 9580                      	COM R24					; Complement the R1 (shift) register
+0000d8 9518                      	RETI					; Return from the interrupt
                                  
                                  MODE:
-0000b7 9518                      	RETI					; Return from the interrupt
+0000d9 9518                      	RETI					; Return from the interrupt
                                  
                                  .org 0x100					; Set origin to FLASH 0x100
                                  CHARTABLE:
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(250): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(290): warning: .cseg .db misalignment - padding zero byte
 000100 0041                          .db 'A'					; Store value for 'A'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(251): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(291): warning: .cseg .db misalignment - padding zero byte
 000101 0042                          .db 'B'					; Store value for 'B'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(252): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(292): warning: .cseg .db misalignment - padding zero byte
 000102 0043                          .db 'C'					; Store value for 'C'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(253): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(293): warning: .cseg .db misalignment - padding zero byte
 000103 0044                          .db 'D'					; Store value for 'D'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(254): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(294): warning: .cseg .db misalignment - padding zero byte
 000104 0045                          .db 'E'					; Store value for 'E'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(255): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(295): warning: .cseg .db misalignment - padding zero byte
 000105 0046                          .db 'F'					; Store value for 'F'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(256): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(296): warning: .cseg .db misalignment - padding zero byte
 000106 0047                          .db 'G'					; Store value for 'G'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(257): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(297): warning: .cseg .db misalignment - padding zero byte
 000107 0048                          .db 'H'					; Store value for 'H'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(258): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(298): warning: .cseg .db misalignment - padding zero byte
 000108 0049                          .db 'I'					; Store value for 'I'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(259): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(299): warning: .cseg .db misalignment - padding zero byte
 000109 004a                          .db 'J'					; Store value for 'J'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(260): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(300): warning: .cseg .db misalignment - padding zero byte
 00010a 004b                          .db 'K'					; Store value for 'K'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(261): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(301): warning: .cseg .db misalignment - padding zero byte
 00010b 004c                          .db 'L'					; Store value for 'L'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(262): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(302): warning: .cseg .db misalignment - padding zero byte
 00010c 004d                          .db 'M'					; Store value for 'M'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(263): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(303): warning: .cseg .db misalignment - padding zero byte
 00010d 004e                          .db 'N'					; Store value for 'N'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(264): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(304): warning: .cseg .db misalignment - padding zero byte
 00010e 004f                          .db 'O'					; Store value for 'O'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(265): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(305): warning: .cseg .db misalignment - padding zero byte
 00010f 0050                          .db 'P'					; Store value for 'P'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(266): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(306): warning: .cseg .db misalignment - padding zero byte
 000110 0051                          .db 'Q'					; Store value for 'Q'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(267): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(307): warning: .cseg .db misalignment - padding zero byte
 000111 0052                          .db 'R'					; Store value for 'R'
 000112 9508                          RET					    ; Return to origin of subroutine call
                                  
                                  .org 0x200                  ; Set origin to FLASH 0x200
                                  SHIFTTABLE:
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(272): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(312): warning: .cseg .db misalignment - padding zero byte
 000200 0053                          .db 'S'					; Store value for 'S'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(273): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(313): warning: .cseg .db misalignment - padding zero byte
 000201 0054                          .db 'T'					; Store value for 'T'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(274): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(314): warning: .cseg .db misalignment - padding zero byte
 000202 0055                          .db 'U'					; Store value for 'U'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(275): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(315): warning: .cseg .db misalignment - padding zero byte
 000203 0056                          .db 'V'					; Store value for 'V'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(276): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(316): warning: .cseg .db misalignment - padding zero byte
 000204 0057                          .db 'W'					; Store value for 'W'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(277): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(317): warning: .cseg .db misalignment - padding zero byte
 000205 0058                          .db 'X'					; Store value for 'X'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(278): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(318): warning: .cseg .db misalignment - padding zero byte
 000206 0059                          .db 'Y'					; Store value for 'Y'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(279): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(319): warning: .cseg .db misalignment - padding zero byte
 000207 005a                          .db 'Z'					; Store value for 'Z'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(280): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(320): warning: .cseg .db misalignment - padding zero byte
 000208 0030                          .db '0'					; Store value for '0'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(281): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(321): warning: .cseg .db misalignment - padding zero byte
 000209 0031                          .db '1'					; Store value for '1'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(282): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(322): warning: .cseg .db misalignment - padding zero byte
 00020a 0032                          .db '2'					; Store value for '2'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(283): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(323): warning: .cseg .db misalignment - padding zero byte
 00020b 0033                          .db '3'					; Store value for '3'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(284): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(324): warning: .cseg .db misalignment - padding zero byte
 00020c 0034                          .db '4'					; Store value for '4'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(285): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(325): warning: .cseg .db misalignment - padding zero byte
 00020d 0035                          .db '5'					; Store value for '5'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(286): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(326): warning: .cseg .db misalignment - padding zero byte
 00020e 0036                          .db '6'					; Store value for '6'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(287): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(327): warning: .cseg .db misalignment - padding zero byte
 00020f 0037                          .db '7'					; Store value for '7'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(288): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(328): warning: .cseg .db misalignment - padding zero byte
 000210 0038                          .db '8'					; Store value for '8'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(289): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(329): warning: .cseg .db misalignment - padding zero byte
 000211 0039                          .db '9'					; Store value for '9'
 
 
@@ -1328,7 +1368,7 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   2 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  20 r17:  13 r18:  14 r19:   0 r20:   1 
+r13:   0 r14:   0 r15:   0 r16:  20 r17:  13 r18:  28 r19:   0 r20:   1 
 r21:   2 r22:   2 r23:   2 r24:   2 r25:   2 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   6 r31:   2 
 Registers used: 12 out of 35 (34.3%)
@@ -1339,16 +1379,16 @@ andi  :   1 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0
 brcc  :   0 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :  22 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :  23 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   2 cp    :   0 cpc   :   0 
 cpi   :   3 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  28 lds   :   0 lpm   :   6 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :  35 lds   :   0 lpm   :   6 lsl   :   0 
 lsr   :   0 mov   :   2 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :  22 or    :   0 ori   :   0 out   :  14 pop   :   0 
-push  :   0 rcall :  21 ret   :   9 reti  :   5 rjmp  :  12 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :  20 sbic  :   1 sbis  :   0 
+neg   :   0 nop   :  22 or    :   0 ori   :   0 out   :  21 pop   :   0 
+push  :   0 rcall :  37 ret   :   9 reti  :   5 rjmp  :  12 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :  23 sbic  :   1 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   1 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   2 
@@ -1358,7 +1398,7 @@ Instructions used: 23 out of 113 (20.4%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000426    372     72    444   32768   1.4%
+[.cseg] 0x000000 0x000426    440     72    512   32768   1.6%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

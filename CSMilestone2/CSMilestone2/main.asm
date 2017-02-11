@@ -99,10 +99,52 @@ PIATEST:
 	CBI PORTB, 0			; Selects Data Registers
 
 	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC
+	RCALL DELAY
+
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC
+	RCALL DELAY
+
+	CBI PORTB, 1			; Selects DRA
 	LDI R18, 0x55			; Loads value into R18
 	OUT PORTD, R18			; Writes the data to DRA of the PIA
 	RCALL EXEC
+	RCALL DELAY
 
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x55			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC
+	RCALL DELAY
+
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC
+	RCALL DELAY
+
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC
+	RCALL DELAY
+
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xAA			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC
+	RCALL DELAY
+
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xAA			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC
+	RCALL DELAY
 
 FINISH:
 	NOP						; Pause for one cycle
@@ -148,7 +190,7 @@ CHECKBUSY:
 	RET						; Return to origin of subroutine call
 
 DELAY:
-	LDI R23, 1 				; Load 255 into R23
+	LDI R23, 100			; Load 255 into R23
 LP3:LDI R22, 255			; Load 255 into R22
 LP2:LDI R21, 255			; Load 255 into R21
 LP1:DEC R21					; Decrement R21
