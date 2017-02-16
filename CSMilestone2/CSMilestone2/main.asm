@@ -1,5 +1,5 @@
-  ;
-; CSAssignment2.asm
+;
+; CSProject.asm
 ;
 ; Created: 2/2/2017 1:48:32 PM
 ; Author : Morgan Walkup
@@ -95,6 +95,85 @@ PIAINIT:
 	OUT PORTD, R18			; Writes the data to the PIA
 	RCALL EXEC				; Execute Instruction
 
+ PIATESTPATTERN:
+	CBI PORTB, 0			; Selects Data Registers
+	;(-10,-10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+	;(-10,10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+	;(10,10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+	;(10,-10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+	;(-10,-10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+	
+	;===========BEGIN STAR=================
+	
+/*	;(0,10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x80			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
+	;(10,-10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*/
+
+
+	RJMP PIATESTPATTERN		; Jump back to PIA test pattern beginning
+
 FINISH:
 	NOP						; Pause for one cycle
 	RJMP FINISH				; Jump back to FINISH
@@ -140,7 +219,7 @@ CHECKBUSY:
 
 DELAY:
 	LDI R23, 1				; Load 1 into R23
-LP3:LDI R22, 255			; Load 255 into R22
+LP3:LDI R22, 255				; Load 255 into R22
 LP2:LDI R21, 255			; Load 255 into R21
 LP1:DEC R21					; Decrement R21
 	BRNE LP1				; Branch to LP1 if R21 != 0
@@ -149,6 +228,19 @@ LP1:DEC R21					; Decrement R21
 	DEC R23					; Decrement R23
 	BRNE LP3				; Branch to LP3 if R23 != 0
 	RET						; Return to origin of subroutine calls
+
+LASERDELAY:
+	LDI R23, 1				; Load 1 into R23
+LR3:LDI R22, 20			; Load 255 into R22
+LR2:LDI R21, 255			; Load 255 into R21
+LR1:DEC R21					; Decrement R21
+	BRNE LR1				; Branch to LP1 if R21 != 0
+	DEC R22					; Decrement R22
+	BRNE LR2				; Branch to LP2 if R22 != 0
+	DEC R23					; Decrement R23
+	BRNE LR3				; Branch to LP3 if R23 != 0
+	RET						; Return to origin of subroutine calls
+	RET
 
 EXEC:
 	SBI PORTB, 2			; Set E=1
@@ -234,7 +326,7 @@ SHIFT:
 MODE:
 	RETI					; Return from the interrupt
 
-.org 0x100					; Set origin to FLASH 0x100
+.org 0x1000					; Set origin to FLASH 0x100
 CHARTABLE:
     .db 'A'					; Store value for 'A'
     .db 'B'					; Store value for 'B'
@@ -256,7 +348,7 @@ CHARTABLE:
     .db 'R'					; Store value for 'R'
     RET					    ; Return to origin of subroutine call
 
-.org 0x200                  ; Set origin to FLASH 0x200
+.org 0x1100                  ; Set origin to FLASH 0x200
 SHIFTTABLE:
     .db 'S'					; Store value for 'S'
     .db 'T'					; Store value for 'T'
