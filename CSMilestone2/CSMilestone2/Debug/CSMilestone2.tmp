@@ -23,30 +23,30 @@
  </OUTPUT_FILES>
  <LABELS>
   <INITIALIZE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>18</LINE></INITIALIZE>
-  <PCINT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>288</LINE></PCINT>
-  <OUTCOMM><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>183</LINE></OUTCOMM>
+  <PCINT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>311</LINE></PCINT>
+  <OUTCOMM><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>206</LINE></OUTCOMM>
   <PIAINIT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>59</LINE></PIAINIT>
-  <EXEC><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>245</LINE></EXEC>
+  <EXEC><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>268</LINE></EXEC>
   <PIATESTPATTERN><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>98</LINE></PIATESTPATTERN>
-  <LASERDELAY><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>232</LINE></LASERDELAY>
-  <FINISH><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>177</LINE></FINISH>
-  <CHECKBUSY><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>207</LINE></CHECKBUSY>
-  <OUTCHAR><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>196</LINE></OUTCHAR>
-  <DELAY><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>220</LINE></DELAY>
-  <LP3><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>222</LINE></LP3>
-  <LP2><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>223</LINE></LP2>
-  <LP1><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>224</LINE></LP1>
-  <LR3><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>234</LINE></LR3>
-  <LR2><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>235</LINE></LR2>
-  <LR1><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>236</LINE></LR1>
-  <NEWLINE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>266</LINE></NEWLINE>
-  <REALCHECKBUSY><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>273</LINE></REALCHECKBUSY>
-  <CHK><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>278</LINE></CHK>
-  <SHIFT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>322</LINE></SHIFT>
-  <MODE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>326</LINE></MODE>
-  <CHARSELECT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>300</LINE></CHARSELECT>
-  <SHIFTSELECT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>312</LINE></SHIFTSELECT>
-  <CHARTABLE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>330</LINE></CHARTABLE>
-  <SHIFTTABLE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>352</LINE></SHIFTTABLE>
+  <LASERDELAY><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>255</LINE></LASERDELAY>
+  <FINISH><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>200</LINE></FINISH>
+  <CHECKBUSY><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>230</LINE></CHECKBUSY>
+  <OUTCHAR><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>219</LINE></OUTCHAR>
+  <DELAY><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>243</LINE></DELAY>
+  <LP3><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>245</LINE></LP3>
+  <LP2><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>246</LINE></LP2>
+  <LP1><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>247</LINE></LP1>
+  <LR3><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>257</LINE></LR3>
+  <LR2><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>258</LINE></LR2>
+  <LR1><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>259</LINE></LR1>
+  <NEWLINE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>289</LINE></NEWLINE>
+  <REALCHECKBUSY><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>296</LINE></REALCHECKBUSY>
+  <CHK><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>301</LINE></CHK>
+  <SHIFT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>345</LINE></SHIFT>
+  <MODE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>349</LINE></MODE>
+  <CHARSELECT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>323</LINE></CHARSELECT>
+  <SHIFTSELECT><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>335</LINE></SHIFTSELECT>
+  <CHARTABLE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>353</LINE></CHARTABLE>
+  <SHIFTTABLE><FILE>C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm</FILE><LINE>375</LINE></SHIFTTABLE>
  </LABELS>
 </ASSEMBLER_INFO>
