@@ -1,8 +1,24 @@
 
-AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm Thu Feb 23 09:23:07 2017
+AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm Mon Feb 27 09:40:35 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(480): warning: offset 0x8000 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(483): warning: offset 0x800c in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(483): warning: offset 0x8200 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(486): warning: offset 0x820e in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(486): warning: offset 0x8400 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(489): warning: offset 0x8408 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(489): warning: offset 0x8600 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(492): warning: offset 0x8610 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(492): warning: offset 0x8800 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(495): warning: offset 0x880c in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(495): warning: offset 0x8a00 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(498): warning: offset 0x8a06 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(498): warning: offset 0x8c00 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(501): warning: offset 0x8c16 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(501): warning: offset 0x8e00 in .cseg is beyond end of memory at 0x7fff
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(503): warning: end of .cseg at 0x8e0a is beyond end of memory at 0x7fff
                                  
                                  ;
                                  
@@ -987,7 +1003,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
                                  
                                  ; CSProject.asm
                                  ;
-                                 ; Created: 2/2/2017 1:48:32 PM
+                                 ; Created: 2/27/2017 1:48:32 PM
                                  ; Author : Morgan Walkup
                                  ;
                                  
@@ -1081,7 +1097,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 000040 b92b                      	OUT PORTD, R18			; Writes the data to the PIA
 000041 d089                      	RCALL EXEC				; Execute Instruction
                                  
-                                  PIATESTPATTERN:
+                                  LASERTESTPATTERN:
 000042 9828                      	CBI PORTB, 0			; Selects Data Registers
                                  	;(-10,-10)
 000043 9829                      	CBI PORTB, 1			; Selects DRA
@@ -1092,7 +1108,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 000048 e020                      	LDI R18, 0x00			; Loads value into R18
 000049 b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
 00004a d080                      	RCALL EXEC				; Execute Instruction
-00004b d074                      	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+00004b d074                      	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
                                  
                                  	;(-10,10)
 00004c 9829                      	CBI PORTB, 1			; Selects DRA
@@ -1103,7 +1119,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 000051 ef2f                      	LDI R18, 0xFF			; Loads value into R18
 000052 b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
 000053 d077                      	RCALL EXEC				; Execute Instruction
-000054 d06b                      	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+000054 d06b                      	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
                                  
                                  	;(10,10)
 000055 9829                      	CBI PORTB, 1			; Selects DRA
@@ -1114,7 +1130,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 00005a ef2f                      	LDI R18, 0xFF			; Loads value into R18
 00005b b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
 00005c d06e                      	RCALL EXEC				; Execute Instruction
-00005d d062                      	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+00005d d062                      	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
                                  
                                  	;(10,-10)
 00005e 9829                      	CBI PORTB, 1			; Selects DRA
@@ -1125,7 +1141,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 000063 e020                      	LDI R18, 0x00			; Loads value into R18
 000064 b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
 000065 d065                      	RCALL EXEC				; Execute Instruction
-000066 d059                      	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+000066 d059                      	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
                                  
                                  	;(-10,-10)
 000067 9829                      	CBI PORTB, 1			; Selects DRA
@@ -1136,7 +1152,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 00006c e020                      	LDI R18, 0x00			; Loads value into R18
 00006d b92b                      	OUT PORTD, R18			; Writes the data to DRB of the PIA
 00006e d05c                      	RCALL EXEC				; Execute Instruction
-00006f d050                      	RCALL LASERDELAY				; Delay (So this change can be seen on the logic analyzer)
+00006f d050                      	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
                                  	
                                  	;===========BEGIN STAR=================
                                  	
@@ -1181,7 +1197,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 000092 d038                      	RCALL EXEC				; Execute Instruction
 000093 d02c                      	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
                                  
-000094 cfad                      	RJMP PIATESTPATTERN		; Jump back to PIA test pattern beginning
+000094 cfad                      	RJMP LASERTESTPATTERN	; Jump back to PIA test pattern beginning
                                  
                                  FINISH:
 000095 0000                      	NOP						; Pause for one cycle
@@ -1240,7 +1256,7 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
                                  
                                  LASERDELAY:
 0000c0 e072                      	LDI R23, 2				; Load 2 into R23
-0000c1 e16b                      LR3:LDI R22, 27				; Load 30 into R22
+0000c1 e16b                      LR3:LDI R22, 27				; Load 27 into R22
 0000c2 ef5f                      LR2:LDI R21, 255			; Load 255 into R21
 0000c3 955a                      LR1:DEC R21					; Decrement R21
 0000c4 f7f1                      	BRNE LR1				; Branch to LP1 if R21 != 0
@@ -1413,6 +1429,296 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 001110 0038                          .db '8'					; Store value for '8'
 C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(393): warning: .cseg .db misalignment - padding zero byte
 001111 0039                          .db '9'					; Store value for '9'
+001112 9508                          RET						; Return to origin of subroutine call
+                                 
+                                 .org 0x1200
+                                 TABLEA:
+001200 4002
+001201 c01e
+001202 403d
+001203 ff00
+001204 8210
+001205 822d                      	.db 0x02, 0x40, 0x1E, 0xC0, 0x3D, 0x40, 0x00, 0xFF, 0x10, 0x82, 0x2D, 0x82 
+                                 .org 0x1300
+                                 TABLEB:
+001300 4002
+001301 c002
+001302 c028
+001303 aa3d
+001304 963d
+001305 8228
+001306 8202
+001307 8228
+001308 6e3d
+001309 503d
+00130a 4028
+00130b 4002                      	.db 0x02, 0x40, 0x02, 0xC0, 0x28, 0xC0, 0x3D, 0xAA, 0x3D, 0x96, 0x28, 0x82, 0x02, 0x82, 0x28, 0x82, 0x3D, 0x6E, 0x3D, 0x50, 0x28, 0x40, 0x02, 0x40
+                                 .org 0x1400
+                                 TABLEC:
+001400 a03d
+001401 c01d
+001402 a002
+001403 5802
+001404 401f
+001405 583d                      	.db 0x3D, 0xA0, 0x1D, 0xC0, 0x02, 0xA0, 0x02, 0x58, 0x1F, 0x40, 0x3D, 0x58
+                                 .org 0x1500
+                                 TABLED:
+001500 4002
+001501 c102
+001502 c028
+001503 963d
+001504 6e3d
+001505 4028
+001506 4002                      	.db 0x02, 0x40, 0x02, 0xC1, 0x28, 0xC0, 0x3D, 0x96, 0x3D, 0x6E, 0x28, 0x40, 0x02, 0x40
+                                 .org 0x1600
+                                 TABLEE:
+001600 c03d
+001601 c002
+001602 4002
+001603 403d
+001604 4002
+001605 8202
+001606 8228                      	.db 0x3D, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x3D, 0x40, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82
+                                 .org 0x1700
+                                 TABLEF:
+001700 c03d
+001701 c002
+001702 4002
+001703 8202
+001704 8228                      	.db 0x3D, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82
+                                 .org 0x1800
+                                 TABLEG:
+001800 a43e
+001801 bf33
+001802 c00d
+001803 a302
+001804 5a02
+001805 410d
+001806 4132
+001807 583e
+001808 7c3e
+001809 7b24                      	.db 0x3E, 0xA4, 0x33, 0xBF, 0x0D, 0xC0, 0x02, 0xA3, 0x02, 0x5A, 0x0D, 0x41, 0x32, 0x41, 0x3E, 0x58, 0x3E, 0x7C, 0x24, 0x7B
+                                 .org 0x1900
+                                 TABLEH:
+001900 c002
+001901 4102
+001902 8202
+001903 823e
+001904 c03e
+001905 403e                      	.db 0x02, 0xC0, 0x02, 0x41, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0xC0, 0x3E, 0x40
+                                 .org 0x2000
+                                 TABLEI:
+002000 c002
+002001 c03e
+002002 c01f
+002003 401f
+002004 4002
+002005 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x1F, 0xC0, 0x1F, 0x40, 0x02, 0x40, 0x3E, 0x40
+                                 .org 0x2100
+                                 TABLEJ:
+002100 c03e
+002101 6f3e
+002102 4021
+002103 6f02                      	.db 0x3E, 0xC0, 0x3E, 0x6F, 0x21, 0x40, 0x02, 0x6F
+                                 .org 0x2200
+                                 TABLEK:
+002200 c002
+002201 8202
+002202 c03e
+002203 8202
+002204 403e
+002205 8202
+002206 4002                      	.db 0x02, 0xC0, 0x02, 0x82, 0x3E, 0xC0, 0x02, 0x82, 0x3E, 0x40, 0x02, 0x82, 0x02, 0x40
+                                 .org 0x2300
+                                 TABLEL:
+002300 c002
+002301 4002
+002302 403e                      	.db 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40
+                                 .org 0x2400
+                                 TABLEM:
+002400 4002
+002401 c011
+002402 4020
+002403 bf2e
+002404 403e                      	.db 0x02, 0x40, 0x11, 0xC0, 0x20, 0x40, 0x2E, 0xBF, 0x3E, 0x40
+                                 .org 0x2500
+                                 TABLEN:
+002500 4002
+002501 c002
+002502 403e
+002503 c03e                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0x40, 0x3E, 0xC0
+                                 .org 0x2600
+                                 TABLEO:
+002600 c014
+002601 a002
+002602 5c02
+002603 4014
+002604 4029
+002605 5b3e
+002606 a03e
+002607 c029
+002608 c014                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0
+                                 .org 0x2700
+                                 TABLEP:
+002700 4002
+002701 c002
+002702 c03e
+002703 823e
+002704 8202                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82
+                                 .org 0x2800
+                                 TABLEQ:
+002800 c014
+002801 a002
+002802 5c02
+002803 4014
+002804 4029
+002805 5b3e
+002806 a03e
+002807 c029
+002808 c014
+002809 ff00
+00280a 5a28
+00280b 403e                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x00, 0xFF, 0x28, 0x5A, 0x3E, 0x40
+                                 .org 0x2900
+                                 TABLER:
+002900 4002
+002901 c002
+002902 c03e
+002903 823e
+002904 8202
+002905 403e                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x3E, 0x40
+                                 .org 0x3000
+                                 TABLES:
+003000 c03e
+003001 c002
+003002 8202
+003003 823e
+003004 403e
+003005 4002                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40
+                                 .org 0x3100
+                                 TABLET:
+003100 4021
+003101 c021
+003102 c002
+003103 c03e                      	.db 0x21, 0x40, 0x21, 0xC0, 0x02, 0xC0, 0x3E, 0xC0
+                                 .org 0x3200
+                                 TABLEU:
+003200 c002
+003201 4002
+003202 403e
+003203 c03e                      	.db 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0xC0
+                                 .org 0x3300
+                                 TABLEV:
+003300 c002
+003301 4020
+003302 c03e                      	.db 0x02, 0xC0, 0x20, 0x40, 0x3E, 0xC0
+                                 .org 0x3400
+                                 TABLEW:
+003400 c002
+003401 4014
+003402 9b21
+003403 402d
+003404 c03e                      	.db 0x02, 0xC0, 0x14, 0x40, 0x21, 0x9B, 0x2D, 0x40, 0x3E, 0xC0
+                                 .org 0x3500
+                                 TABLEX:
+003500 c002
+003501 403e
+003502 ff00
+003503 4002
+003504 c03e                      	.db 0x02, 0xC0, 0x3E, 0x40, 0x00, 0xFF, 0x02, 0x40, 0x3E, 0xC0
+                                 .org 0x3600
+                                 TABLEY:
+003600 c002
+003601 8220
+003602 4020
+003603 8220
+003604 c03e                      	.db 0x02, 0xC0, 0x20, 0x82, 0x20, 0x40, 0x20, 0x82, 0x3E, 0xC0
+                                 .org 0x3700
+                                 TABLEZ:
+003700 c002
+003701 c03e
+003702 4002
+003703 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x02, 0x40, 0x3E, 0x40
+                                 .org 0x3800
+                                 TABLE0:
+003800 c014
+003801 a002
+003802 5c02
+003803 4014
+003804 4029
+003805 5b3e
+003806 a03e
+003807 c029
+003808 c014                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0
+                                 .org 0x3900
+                                 TABLE1:
+003900 c01f
+003901 401f                      	.db 0x1F, 0xC0, 0x1F, 0x40
+                                 .org 0x4000
+                                 TABLE2:
+004000 c002
+004001 c03e
+004002 823e
+004003 8202
+004004 4002
+004005 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x02, 0x40, 0x3E, 0x40
+                                 .org 0x4100
+                                 TABLE3:
+004100 c002
+004101 c03e
+004102 823e
+004103 8214
+004104 823e
+004105 403e
+004106 4002                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x14, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40
+                                 .org 0x4200
+                                 TABLE4:
+004200 6e3e
+004201 6e02
+004202 c036
+004203 4036                      	.db 0x3E, 0x6E, 0x02, 0x6E, 0x36, 0xC0, 0x36, 0x40
+                                 .org 0x4300
+                                 TABLE5:
+004300 c03e
+004301 c002
+004302 8902
+004303 893e
+004304 5d3e
+004305 4031
+004306 4011
+004307 5c02                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x89, 0x3E, 0x89, 0x3E, 0x5D, 0x31, 0x40, 0x11, 0x40, 0x02, 0x5C
+                                 .org 0x4400
+                                 TABLE6:
+004400 c03e
+004401 c002
+004402 4002
+004403 403e
+004404 823e
+004405 8202                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0x82, 0x02, 0x82
+                                 .org 0x4500
+                                 TABLE7:
+004500 c002
+004501 c03e
+004502 4002                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x02, 0x40
+                                 .org 0x4600
+                                 TABLE8:
+004600 8202
+004601 5702
+004602 400f
+004603 4032
+004604 583e
+004605 aa3e
+004606 c033
+004607 c00f
+004608 aa02
+004609 8202
+00460a 823e                      	.db 0x02, 0x82, 0x02, 0x57, 0x0F, 0x40, 0x32, 0x40, 0x3E, 0x58, 0x3E, 0xAA, 0x33, 0xC0, 0x0F, 0xC0, 0x02, 0xAA, 0x02, 0x82, 0x3E, 0x82
+                                 .org 0x4700
+                                 TABLE9:
+004700 403e
+004701 c03e
+004702 c002
+004703 8202
 
 
 RESOURCE USE INFORMATION
@@ -1460,10 +1766,10 @@ sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0
 Instructions used: 23 out of 113 (20.4%)
 
 "ATmega328P" memory use summary [bytes]:
-Segment   Begin    End      Code   Data   Used    Size   Use%
----------------------------------------------------------------
-[.cseg] 0x000000 0x002226    546     72    618   32768   1.9%
+Segment   Begin    End      Code   Data   Used    Size   Use%  Warn
+--------------------------------------------------------------------
+[.cseg] 0x000000 0x008e0a    546    506   1052   32768   3.2%  OVER
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
-Assembly complete, 0 errors, 36 warnings
+Assembly complete, 0 errors, 52 warnings
