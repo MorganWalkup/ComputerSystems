@@ -121,6 +121,16 @@ TESTFINISH:
 	; Select PIA
 	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
 	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
+	; First coordinate
+	LDI ZH, high(TABLESTAR*2) ; Set z-pointer to TABLESTAR beginning
+	LDI ZL, low(TABLESTAR*2)  ; Set z-pointer to TABLESTAR beginning
+	LPM						; Load the value pointed to by Z, store it in R0
+	MOV R16, R0				; Load the value for R0 into R16
+	CBI PORTB, 0			; Selects Data Registers
+	CBI PORTB, 1			; Selects DRA
+	OUT PORTD, R16			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Executes Instruction
+	; Remaining coordinates
 	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
 	RJMP FINISH				; Jump back to FINISH
 
@@ -247,7 +257,20 @@ CHK:NOP						; Wait for one cycle
 	RET						; Return to origin of subroutine call
 
 LASERTESTPATTERN:
-	CBI PORTB, 0			; Selects Data Registers
+	INC ZL					; Increments the z-pointer to the next point in the table
+	LPM						; Load the value pointed to by Z, store it in R0
+	MOV R16, R0				; Load the value for R0 into R16
+	CPI R16, 0x11			; Compares the value in R16 to "end of table" character
+	BREQ LASERTESTEND		; If end of table, branch to LASERTESTEND
+	SBI PORTB, 1			; Selects DRB
+	OUT PORTD, R16			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay so the mirrors of the laser can catch up
+	RJMP LASERTESTPATTERN	; Jump back to LASERTESTPATTERN
+LASERTESTEND:
+	RET						; Return to where it was called
+
+	/*CBI PORTB, 0			; Selects Data Registers
 	;(-10,-10)
 	CBI PORTB, 1			; Selects DRA
 	LDI R18, 0x00			; Loads value into R18
@@ -339,7 +362,7 @@ LASERTESTPATTERN:
 	OUT PORTD, R18			; Writes the data to DRB of the PIA
 	RCALL EXEC				; Execute Instruction
 	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
-	RET						; Return to origin of subroutine call
+	RET						; Return to origin of subroutine call*/
 
 PCINT:
 	COM R25					; Complement the redundancy register
@@ -550,3 +573,6 @@ TABLE8:
 .org 0x4700
 TABLE9:
 	.db 0x3E, 0x40, 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82
+.org 0x4800
+TABLESTAR:		; Character table for the test pattern (square and star)
+	.db 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x80, 0xFF, 0xFF, 0x00, 0x00, 0xA0, 0xFF, 0xA0
