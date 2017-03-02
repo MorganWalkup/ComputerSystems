@@ -15,6 +15,9 @@ RJMP INITIALIZE				; Jump to INITIALIZE
 RJMP INITIALIZE				; Jump to INITIALIZE
 RJMP PCINT					; Jump to PCINT routine
 
+;==================================================================================
+; INITIALIZE
+;==================================================================================
 INITIALIZE:
 	; Initialize registers
 	LDI R17, 0xFF			; Load 0xFF into R17
@@ -22,6 +25,8 @@ INITIALIZE:
 	OUT DDRD, R17			; Set PORTD as output
 	LDI R17, 0x00			; Load 0x00 into R17
 	OUT DDRC, R17			; Set PORTC as input
+	CLR R24					; Clear SHIFT Register
+	CLR R26					; Clear MODE Register
 
 	; Set up LCD
 	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
@@ -95,113 +100,46 @@ PIAINIT:
 	OUT PORTD, R18			; Writes the data to the PIA
 	RCALL EXEC				; Execute Instruction
 
- LASERTESTPATTERN:
-	CBI PORTB, 0			; Selects Data Registers
-	;(-10,-10)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0x00			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0x00			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-
-	;(-10,10)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0x00			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0xFF			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-
-	;(10,10)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0xFF			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0xFF			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-
-	;(10,-10)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0xFF			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0x00			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-
-	;(-10,-10)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0x00			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0x00			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-	
-	;===========BEGIN STAR=================
-	
-	;(0,10)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0x80			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0xFF			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-	;(10,-10)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0xFF			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0x00			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
-	;(-10,2)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0x00			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0xA0			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
-	;(10,2)
-	CBI PORTB, 1			; Selects DRA
-	LDI R18, 0xFF			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Execute Instruction
-	SBI PORTB, 1			; Selects DRB
-	LDI R18, 0xA0			; Loads value into R18
-	OUT PORTD, R18			; Writes the data to DRB of the PIA
-	RCALL EXEC				; Execute Instruction
-	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
-
-	RJMP LASERTESTPATTERN	; Jump back to PIA test pattern beginning
-
 FINISH:
-	NOP						; Pause for one cycle
+	; Call particular routines based on MODE register
+	CPI R26, 0				; Compare MODE register with zero
+	BREQ KEYFINISH			; Branch to KEYFINISH if MODE = 0
+	CPI R26, 1				; Compare MODE register with one
+	BREQ TESTFINISH			; Branch to TESTFINISH if MODE = 1
+	CPI R26, 2				; Compare MODE register with two
+	BREQ LASERFINISH		; Branch to LASERFINISH if MODE = 2
+	CPI R26, 3				; Compare MODE register with three
+	BREQ ANIMFINISH			; Branch to ANIMFINISH if MODE = 3
+
+KEYFINISH:
+	; Select LCD
+	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
 	RJMP FINISH				; Jump back to FINISH
 
-;=========================================================================
+TESTFINISH:
+	; Select PIA
+	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
+	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
+	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+	RJMP FINISH				; Jump back to FINISH
+
+LASERFINISH:
+	; Select PIA
+	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
+	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
+	RJMP FINISH				; Jump back to FINISH
+
+ANIMFINISH:
+	; Select PIA
+	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
+	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
+	;RCALL LASERANIMATION	; Call the Laser Animation subroutine
+	RJMP FINISH				; Jump back to FINISH
+
+;==================================================================================
+; FUNCTIONS
+;==================================================================================
 
 OUTCOMM:
 	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
@@ -308,16 +246,113 @@ CHK:NOP						; Wait for one cycle
 	CBI PORTB, 2			; Set E = 0
 	RET						; Return to origin of subroutine call
 
+LASERTESTPATTERN:
+	CBI PORTB, 0			; Selects Data Registers
+	;(-10,-10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
+	;(-10,10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
+	;(10,10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
+	;(10,-10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
+	;(-10,-10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
+	;===========BEGIN STAR=================
+	;(0,10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x80			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
+	;(10,-10)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
+	;(-10,2)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0x00			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xA0			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
+	;(10,2)
+	CBI PORTB, 1			; Selects DRA
+	LDI R18, 0xFF			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRA of the PIA
+	RCALL EXEC				; Execute Instruction
+	SBI PORTB, 1			; Selects DRB
+	LDI R18, 0xA0			; Loads value into R18
+	OUT PORTD, R18			; Writes the data to DRB of the PIA
+	RCALL EXEC				; Execute Instruction
+	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
+	RET						; Return to origin of subroutine call
+
 PCINT:
 	COM R25					; Complement the redundancy register
 	SBRS R25, 0				; Skip next line if R25 bit 0 is set
 	RETI					; Return from interrupt
 	IN R16, PINC			; Put data from PINC into R16
 	ANDI R16, 0x1F			; AND R16 with 0x1F
-	CPI R16, 0x12			; Compare R16 with the hex value for the "shift" key
-	BREQ SHIFT				; If R16 = Shift, branch to SHIFT routine
 	CPI R16, 0x13			; Compare R16 with the hex value for the "mode" key
 	BREQ MODE				; If R16 = Mode, branch to MODE routine
+	CPI R26, 0				; Compare MODE register to 0
+	BRNE DUMBRET			; Branch to DUMBRET if MODE != 0			
+	CPI R16, 0x12			; Compare R16 with the hex value for the "shift" key
+	BREQ SHIFT				; If R16 = Shift, branch to SHIFT routine
 	RJMP CHARSELECT			; Jump to CHARSELECT
 
 CHARSELECT:
@@ -347,7 +382,21 @@ SHIFT:
 	RETI					; Return from the interrupt
 
 MODE:
+	CPI R26, 4				; Compare R26 to 4
+	BREQ RESETMODE			; Branch to RESETMODE if MODE = 4
+	INC R26					; Increment the MODE register
 	RETI					; Return from the interrupt
+
+RESETMODE:
+	CLR R26					; Clear the MODE register
+	RETI					; Return from the interrupt
+
+DUMBRET:
+	RETI					; Return from the interrupt
+
+;===================================================================================================
+;TABLES
+;===================================================================================================
 
 .org 0x1000					; Set origin to FLASH 0x100
 CHARTABLE:
