@@ -1,26 +1,8 @@
 
-AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm Mon Mar 06 15:58:15 2017
+AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm Wed Mar 08 14:11:32 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(560): warning: offset 0x8000 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(563): warning: offset 0x800c in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(563): warning: offset 0x8200 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(566): warning: offset 0x820e in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(566): warning: offset 0x8400 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(569): warning: offset 0x8408 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(569): warning: offset 0x8600 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(572): warning: offset 0x8610 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(572): warning: offset 0x8800 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(575): warning: offset 0x880c in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(575): warning: offset 0x8a00 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(578): warning: offset 0x8a06 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(578): warning: offset 0x8c00 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(581): warning: offset 0x8c16 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(581): warning: offset 0x8e00 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(584): warning: offset 0x8e0a in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(584): warning: offset 0x9000 in .cseg is beyond end of memory at 0x7fff
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(586): warning: end of .cseg at 0x900c is beyond end of memory at 0x7fff
                                  
                                  ;
                                  
@@ -1017,7 +999,7 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 000005 c003                      RJMP INITIALIZE				; Jump to INITIALIZE
 000006 c002                      RJMP INITIALIZE				; Jump to INITIALIZE
 000007 c001                      RJMP INITIALIZE				; Jump to INITIALIZE
-000008 c0c1                      RJMP PCINT					; Jump to PCINT routine
+000008 c0c0                      RJMP PCINT					; Jump to PCINT routine
                                  
                                  ;==================================================================================
                                  ; INITIALIZE
@@ -1075,34 +1057,34 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 00002b 9a28                      	SBI PORTB, 0			; Set RS0 to select CRA with previous line
 00002c e020                      	LDI R18, 0x00			; Clears CRA bit 2, to access DDRA
 00002d b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-00002e d061                      	RCALL EXEC				; Execute Instruction
+00002e d060                      	RCALL EXEC				; Execute Instruction
                                  	; Set DDRA to 0xFF
 00002f 9828                      	CBI PORTB, 0			; Clears RS0 select DDRA
 000030 ef2f                      	LDI R18, 0xFF			; Sets DDRA to output
 000031 b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-000032 d05d                      	RCALL EXEC				; Execute Instruction
+000032 d05c                      	RCALL EXEC				; Execute Instruction
                                  	; Set bit 2 of CRA to 1
 000033 9a28                      	SBI PORTB, 0			; Set RS0 to select CRA again
 000034 e024                      	LDI R18, 0x04			; Sets CRA bit 2, to access DRA
 000035 b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-000036 d059                      	RCALL EXEC				; Execute Instruction
+000036 d058                      	RCALL EXEC				; Execute Instruction
                                  
                                  	; Set bit 2 of CRB to 0
 000037 9a29                      	SBI PORTB, 1			; Set RS1 to select CRB
 000038 9a28                      	SBI PORTB, 0			; Set RSO to select CRB with previous line
 000039 e020                      	LDI R18, 0x00			; Clears CRB bit 2, to access DDRB
 00003a b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-00003b d054                      	RCALL EXEC				; Execute Instruction
+00003b d053                      	RCALL EXEC				; Execute Instruction
                                  	; Set DDRB to 0xFF
 00003c 9828                      	CBI PORTB, 0			; Clears RS0 to select DDRB
 00003d ef2f                      	LDI R18, 0xFF			; Sets DDRB to output
 00003e b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-00003f d050                      	RCALL EXEC				; Execute Instruction
+00003f d04f                      	RCALL EXEC				; Execute Instruction
                                  	; Set bit 2 of CRB to 1
 000040 9a28                      	SBI PORTB, 0			; Set RS0 to select CRB again
 000041 e024                      	LDI R18, 0x04			; Set bit 2 of CRB to select DRB
 000042 b92b                      	OUT PORTD, R18			; Writes the data to the PIA
-000043 d04c                      	RCALL EXEC				; Execute Instruction
+000043 d04b                      	RCALL EXEC				; Execute Instruction
                                  
                                  FINISH:
                                  	; Call particular routines based on MODE register
@@ -1127,10 +1109,10 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 000050 982b                      	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
 000051 982c                      	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
                                  	; Initialize z-pointer
-000052 e9f0                      	LDI ZH, high(TABLESTAR*2) ; Set z-pointer to TABLESTAR beginning
+000052 e4f4                      	LDI ZH, high(TABLESTAR*2) ; Set z-pointer to TABLESTAR beginning
 000053 e0e0                      	LDI ZL, low(TABLESTAR*2)  ; Set z-pointer to TABLESTAR beginning
                                  	; Output coordinates
-000054 d060                      	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+000054 d05f                      	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
                                  	; Jump back
 000055 cfee                      	RJMP FINISH				; Jump back to FINISH
                                  
@@ -1161,7 +1143,7 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 000062 ef1f                      	LDI R17, 0xFF			; Load 0xFF into R17
 000063 b91a                      	OUT DDRD, R17			; Set PORTD as output
 000064 b90b                      	OUT PORTD, R16			; OUTPUT the contents of R16 to PORTD
-000065 d02a                      	RCALL EXEC				; Call the EXEC subroutine 
+000065 d029                      	RCALL EXEC				; Call the EXEC subroutine 
 000066 9508                      	RET						; Return to the origin of subroutine call
                                  
                                  OUTCHAR:
@@ -1172,7 +1154,7 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 00006b 9829                      	CBI PORTB, 1			; Set R/!W = 0
 00006c 9a28                      	SBI PORTB, 0			; Set RS = 1
 00006d b90b                      	OUT PORTD, R16			; Output R16 to PORTD
-00006e d021                      	RCALL EXEC				; Call the EXEC subroutine 
+00006e d020                      	RCALL EXEC				; Call the EXEC subroutine 
 00006f 9508                      	RET						; Return to the origin of the subroutine call
                                  
                                  CHECKBUSY:
@@ -1211,10 +1193,10 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 00008c 957a                      	DEC R23					; Decrement R23
 00008d f7c1                      	BRNE LR3				; Branch to LP3 if R23 != 0
 00008e 9508                      	RET						; Return to origin of subroutine calls
-00008f 9508                      	RET
                                  
                                  EXEC:
-000090 9a2a                      	SBI PORTB, 2			; Set E=1
+00008f 9a2a                      	SBI PORTB, 2			; Set E=1
+000090 0000                      	NOP						; Wait for one cycle
 000091 0000                      	NOP						; Wait for one cycle
 000092 0000                      	NOP						; Wait for one cycle
 000093 0000                      	NOP						; Wait for one cycle
@@ -1222,8 +1204,8 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 000095 0000                      	NOP						; Wait for one cycle
 000096 0000                      	NOP						; Wait for one cycle
 000097 0000                      	NOP						; Wait for one cycle
-000098 0000                      	NOP						; Wait for one cycle
-000099 982a                      	CBI PORTB, 2			; Set E=0
+000098 982a                      	CBI PORTB, 2			; Set E=0
+000099 0000                      	NOP						; Wait for one cycle
 00009a 0000                      	NOP						; Wait for one cycle
 00009b 0000                      	NOP						; Wait for one cycle
 00009c 0000                      	NOP						; Wait for one cycle
@@ -1231,203 +1213,108 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 00009e 0000                      	NOP						; Wait for one cycle
 00009f 0000                      	NOP						; Wait for one cycle
 0000a0 0000                      	NOP						; Wait for one cycle
-0000a1 0000                      	NOP						; Wait for one cycle
-0000a2 9508                      	RET						; Return to origin of subroutine call
+0000a1 9508                      	RET						; Return to origin of subroutine call
                                  
                                  NEWLINE:
-0000a3 e200                      	LDI R16, 0b00100000		; Load the value for " " into R16
-0000a4 dfc2                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
-0000a5 954a                      	DEC R20					; Decrement R20
-0000a6 f7e1                      	BRNE NEWLINE			; If R20 != 0, call NEWLINE again
-0000a7 9508                      	RET						; Return to the origin of the subroutine call
+0000a2 e200                      	LDI R16, 0b00100000		; Load the value for " " into R16
+0000a3 dfc3                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
+0000a4 954a                      	DEC R20					; Decrement R20
+0000a5 f7e1                      	BRNE NEWLINE			; If R20 != 0, call NEWLINE again
+0000a6 9508                      	RET						; Return to the origin of the subroutine call
                                  
                                  REALCHECKBUSY:
-0000a8 982a                      	CBI PORTB, 2			; Set E = 0
-0000a9 9a29                      	SBI PORTB, 1			; Set R/!W = 1
-0000aa 9828                      	CBI PORTB, 0			; Set RS = 0
-0000ab 9a2a                      	SBI PORTB, 2			; Set E = 1
-0000ac 0000                      CHK:NOP						; Wait for one cycle
+0000a7 982a                      	CBI PORTB, 2			; Set E = 0
+0000a8 9a29                      	SBI PORTB, 1			; Set R/!W = 1
+0000a9 9828                      	CBI PORTB, 0			; Set RS = 0
+0000aa 9a2a                      	SBI PORTB, 2			; Set E = 1
+0000ab 0000                      CHK:NOP						; Wait for one cycle
+0000ac 0000                      	NOP						; Wait for one cycle
 0000ad 0000                      	NOP						; Wait for one cycle
 0000ae 0000                      	NOP						; Wait for one cycle
 0000af 0000                      	NOP						; Wait for one cycle
-0000b0 0000                      	NOP						; Wait for one cycle
-0000b1 994f                      	SBIC PIND, 7			; Test PORTD Bit 7. If high, display is busy
-0000b2 cff9                      	RJMP CHK				; Jump to REALCHECKBUSY
-0000b3 982a                      	CBI PORTB, 2			; Set E = 0
-0000b4 9508                      	RET						; Return to origin of subroutine call
+0000b0 994f                      	SBIC PIND, 7			; Test PORTD Bit 7. If high, display is busy
+0000b1 cff9                      	RJMP CHK				; Jump to REALCHECKBUSY
+0000b2 982a                      	CBI PORTB, 2			; Set E = 0
+0000b3 9508                      	RET						; Return to origin of subroutine call
                                  	
                                  LASERTESTPATTERN:
                                  	; X-Coordinate
-0000b5 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
-0000b6 2d00                      	MOV R16, R0				; Load the value for R0 into R16
-0000b7 3101                      	CPI R16, 0x11			; Compares the value in R16 to "end of table" code
-0000b8 f081                      	BREQ LASERTESTEND		; If end of table, branch to LASERTESTEND
-0000b9 9828                      	CBI PORTB, 0			; Selects Data Registers
-0000ba 9829                      	CBI PORTB, 1			; Selects DRA
-0000bb b90b                      	OUT PORTD, R16			; Writes the data to DRA of the PIA
-0000bc dfd3                      	RCALL EXEC				; Executes Instruction
-0000bd 95e3                      	INC ZL					; Increments the z-pointer to the next point in the table
+0000b4 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
+0000b5 2d00                      	MOV R16, R0				; Load the value for R0 into R16
+0000b6 3101                      	CPI R16, 0x11			; Compares the value in R16 to "end of table" code
+0000b7 f081                      	BREQ LASERTESTEND		; If end of table, branch to LASERTESTEND
+0000b8 9828                      	CBI PORTB, 0			; Selects Data Registers
+0000b9 9829                      	CBI PORTB, 1			; Selects DRA
+0000ba b90b                      	OUT PORTD, R16			; Writes the data to DRA of the PIA
+0000bb dfd3                      	RCALL EXEC				; Executes Instruction
+0000bc 95e3                      	INC ZL					; Increments the z-pointer to the next point in the table
                                  	; Y-Coordinate
-0000be 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
-0000bf 2d00                      	MOV R16, R0				; Load the value for R0 into R16
-0000c0 3101                      	CPI R16, 0x11			; Compares the value in R16 to "end of table" code
-0000c1 f039                      	BREQ LASERTESTEND		; If end of table, branch to LASERTESTEND
-0000c2 9828                      	CBI PORTB, 0			; Selects Data Registers
-0000c3 9a29                      	SBI PORTB, 1			; Selects DRB
-0000c4 b90b                      	OUT PORTD, R16			; Writes the data to DRB of the PIA
-0000c5 dfca                      	RCALL EXEC				; Execute Instruction	
-0000c6 95e3                      	INC ZL
-0000c7 dfbd                      	RCALL LASERDELAY		; Delay so the mirrors of the laser can catch up
-0000c8 cfec                      	RJMP LASERTESTPATTERN	; Jump back to LASERTESTPATTERN	
+0000bd 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
+0000be 2d00                      	MOV R16, R0				; Load the value for R0 into R16
+0000bf 3101                      	CPI R16, 0x11			; Compares the value in R16 to "end of table" code
+0000c0 f039                      	BREQ LASERTESTEND		; If end of table, branch to LASERTESTEND
+0000c1 9828                      	CBI PORTB, 0			; Selects Data Registers
+0000c2 9a29                      	SBI PORTB, 1			; Selects DRB
+0000c3 b90b                      	OUT PORTD, R16			; Writes the data to DRB of the PIA
+0000c4 dfca                      	RCALL EXEC				; Execute Instruction	
+0000c5 95e3                      	INC ZL
+0000c6 dfbe                      	RCALL LASERDELAY		; Delay so the mirrors of the laser can catch up
+0000c7 cfec                      	RJMP LASERTESTPATTERN	; Jump back to LASERTESTPATTERN	
                                  LASERTESTEND:
-0000c9 9508                      	RET						; Return to where it was called
-                                 
-                                 /*	CBI PORTB, 0			; Selects Data Registers
-                                 	;(-10,-10)
-                                 	CBI PORTB, 1			; Selects DRA
-                                 	LDI R18, 0x00			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	SBI PORTB, 1			; Selects DRB
-                                 	LDI R18, 0x00			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-                                 	;(-10,10)
-                                 	CBI PORTB, 1			; Selects DRA
-                                 	LDI R18, 0x00			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	SBI PORTB, 1			; Selects DRB
-                                 	LDI R18, 0xFF			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-                                 	;(10,10)
-                                 	CBI PORTB, 1			; Selects DRA
-                                 	LDI R18, 0xFF			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	SBI PORTB, 1			; Selects DRB
-                                 	LDI R18, 0xFF			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-                                 	;(10,-10)
-                                 	CBI PORTB, 1			; Selects DRA
-                                 	LDI R18, 0xFF			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	SBI PORTB, 1			; Selects DRB
-                                 	LDI R18, 0x00			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-                                 	;(-10,-10)
-                                 	CBI PORTB, 1			; Selects DRA
-                                 	LDI R18, 0x00			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	SBI PORTB, 1			; Selects DRB
-                                 	LDI R18, 0x00			; Loads value into R18
-                                 	OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	RCALL EXEC				; Execute Instruction
-                                 	RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-                                 	;===========BEGIN STAR=================
-                                 	;(0,10)
-                                 	;CBI PORTB, 1			; Selects DRA
-                                 	;LDI R18, 0x80			; Loads value into R18
-                                 	;OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	;RCALL EXEC				; Execute Instruction
-                                 	;SBI PORTB, 1			; Selects DRB
-                                 	;LDI R18, 0xFF			; Loads value into R18
-                                 	;OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	;RCALL EXEC				; Execute Instruction
-                                 	;RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)
-                                 	;(10,-10)
-                                 	;CBI PORTB, 1			; Selects DRA
-                                 	;LDI R18, 0xFF			; Loads value into R18
-                                 	;OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	;RCALL EXEC				; Execute Instruction
-                                 	;SBI PORTB, 1			; Selects DRB
-                                 	;LDI R18, 0x00			; Loads value into R18
-                                 	;OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	;RCALL EXEC				; Execute Instruction
-                                 	;RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
-                                 	;(-10,2)
-                                 	;CBI PORTB, 1			; Selects DRA
-                                 	;LDI R18, 0x00			; Loads value into R18
-                                 	;OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	;;RCALL EXEC				; Execute Instruction
-                                 	;SBI PORTB, 1			; Selects DRB
-                                 	;LDI R18, 0xA0			; Loads value into R18
-                                 	;OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	;RCALL EXEC				; Execute Instruction
-                                 	;RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
-                                 	;;(10,2)
-                                 	;CBI PORTB, 1			; Selects DRA
-                                 	;LDI R18, 0xFF			; Loads value into R18
-                                 	;OUT PORTD, R18			; Writes the data to DRA of the PIA
-                                 	;RCALL EXEC				; Execute Instruction
-                                 	;SBI PORTB, 1			; Selects DRB
-                                 	;LDI R18, 0xA0			; Loads value into R18
-                                 	;OUT PORTD, R18			; Writes the data to DRB of the PIA
-                                 	;RCALL EXEC				; Execute Instruction
-                                 	;RCALL LASERDELAY		; Delay (So this change can be seen on the logic analyzer)*
-                                 	RET						; Return to origin of subroutine call*/
+0000c8 9508                      	RET						; Return to where it was called
                                  	
                                  PCINT:
-0000ca 9590                      	COM R25					; Complement the redundancy register
-0000cb ff90                      	SBRS R25, 0				; Skip next line if R25 bit 0 is set
-0000cc 9518                      	RETI					; Return from interrupt
-0000cd b106                      	IN R16, PINC			; Put data from PINC into R16
-0000ce 710f                      	ANDI R16, 0x1F			; AND R16 with 0x1F
-0000cf 3103                      	CPI R16, 0x13			; Compare R16 with the hex value for the "mode" key
-0000d0 f0c9                      	BREQ MODE				; If R16 = Mode, branch to MODE routine
-0000d1 30a0                      	CPI R26, 0				; Compare MODE register to 0
-0000d2 f4e9                      	BRNE DUMBRET			; Branch to DUMBRET if MODE != 0			
-0000d3 3102                      	CPI R16, 0x12			; Compare R16 with the hex value for the "shift" key
-0000d4 f099                      	BREQ SHIFT				; If R16 = Shift, branch to SHIFT routine
-0000d5 c000                      	RJMP CHARSELECT			; Jump to CHARSELECT
+0000c9 9590                      	COM R25					; Complement the redundancy register
+0000ca ff90                      	SBRS R25, 0				; Skip next line if R25 bit 0 is set
+0000cb 9518                      	RETI					; Return from interrupt
+0000cc b106                      	IN R16, PINC			; Put data from PINC into R16
+0000cd 710f                      	ANDI R16, 0x1F			; AND R16 with 0x1F
+0000ce 3103                      	CPI R16, 0x13			; Compare R16 with the hex value for the "mode" key
+0000cf f0c9                      	BREQ MODE				; If R16 = Mode, branch to MODE routine
+0000d0 30a0                      	CPI R26, 0				; Compare MODE register to 0
+0000d1 f4e9                      	BRNE DUMBRET			; Branch to DUMBRET if MODE != 0			
+0000d2 3102                      	CPI R16, 0x12			; Compare R16 with the hex value for the "shift" key
+0000d3 f099                      	BREQ SHIFT				; If R16 = Shift, branch to SHIFT routine
+0000d4 c000                      	RJMP CHARSELECT			; Jump to CHARSELECT
                                  
                                  CHARSELECT:
-0000d6 3f8f                      	CPI R24, 0xFF			; Compare Shift Register to 0xFF
-0000d7 f041                      	BREQ SHIFTSELECT		; If Shift Register = 0xFF, branch to SHIFTSELECT
-0000d8 e2f0                      	LDI ZH, high(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000d9 e0e0                      	LDI ZL, low(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000da 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
-0000db 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
-0000dc 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
-0000dd 2d00                      	MOV R16, R0				; Load the value for R0 into R16
-0000de df88                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
-0000df 9518                      	RETI					; Return from the interrupt
+0000d5 3f8f                      	CPI R24, 0xFF			; Compare Shift Register to 0xFF
+0000d6 f041                      	BREQ SHIFTSELECT		; If Shift Register = 0xFF, branch to SHIFTSELECT
+0000d7 e2f0                      	LDI ZH, high(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000d8 e0e0                      	LDI ZL, low(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000d9 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
+0000da 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
+0000db 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
+0000dc 2d00                      	MOV R16, R0				; Load the value for R0 into R16
+0000dd df89                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
+0000de 9518                      	RETI					; Return from the interrupt
                                  
                                  SHIFTSELECT:
-0000e0 e2f2                      	LDI ZH, high(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000e1 e0e0                      	LDI ZL, low(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000e2 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
-0000e3 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
-0000e4 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
-0000e5 2d00                      	MOV R16, R0				; Load the value for R0 into R16
-0000e6 df80                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
-0000e7 9518                      	RETI					; Return from the interrupt
+0000df e2f2                      	LDI ZH, high(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000e0 e0e0                      	LDI ZL, low(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000e1 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
+0000e2 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
+0000e3 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
+0000e4 2d00                      	MOV R16, R0				; Load the value for R0 into R16
+0000e5 df81                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
+0000e6 9518                      	RETI					; Return from the interrupt
                                  
                                  SHIFT:
-0000e8 9580                      	COM R24					; Complement the R1 (shift) register
-0000e9 9518                      	RETI					; Return from the interrupt
+0000e7 9580                      	COM R24					; Complement the R1 (shift) register
+0000e8 9518                      	RETI					; Return from the interrupt
                                  
                                  MODE:
-0000ea 30a4                      	CPI R26, 4				; Compare R26 to 4
-0000eb f011                      	BREQ RESETMODE			; Branch to RESETMODE if MODE = 4
-0000ec 95a3                      	INC R26					; Increment the MODE register
-0000ed 9518                      	RETI					; Return from the interrupt
+0000e9 30a3                      	CPI R26, 3				; Compare R26 to 3
+0000ea f011                      	BREQ RESETMODE			; Branch to RESETMODE if MODE = 3
+0000eb 95a3                      	INC R26					; Increment the MODE register
+0000ec 9518                      	RETI					; Return from the interrupt
                                  
                                  RESETMODE:
-0000ee 27aa                      	CLR R26					; Clear the MODE register
-0000ef 9518                      	RETI					; Return from the interrupt
+0000ed 27aa                      	CLR R26					; Clear the MODE register
+0000ee 9518                      	RETI					; Return from the interrupt
                                  
                                  DUMBRET:
-0000f0 9518                      	RETI					; Return from the interrupt
+0000ef 9518                      	RETI					; Return from the interrupt
                                  
                                  ;===================================================================================================
                                  ;TABLES
@@ -1435,81 +1322,81 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
                                  
                                  .org 0x1000					; Set origin to FLASH 0x100
                                  CHARTABLE:
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(434): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(339): warning: .cseg .db misalignment - padding zero byte
 001000 0041                          .db 'A'					; Store value for 'A'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(435): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(340): warning: .cseg .db misalignment - padding zero byte
 001001 0042                          .db 'B'					; Store value for 'B'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(436): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(341): warning: .cseg .db misalignment - padding zero byte
 001002 0043                          .db 'C'					; Store value for 'C'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(437): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(342): warning: .cseg .db misalignment - padding zero byte
 001003 0044                          .db 'D'					; Store value for 'D'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(438): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(343): warning: .cseg .db misalignment - padding zero byte
 001004 0045                          .db 'E'					; Store value for 'E'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(439): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(344): warning: .cseg .db misalignment - padding zero byte
 001005 0046                          .db 'F'					; Store value for 'F'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(440): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(345): warning: .cseg .db misalignment - padding zero byte
 001006 0047                          .db 'G'					; Store value for 'G'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(441): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(346): warning: .cseg .db misalignment - padding zero byte
 001007 0048                          .db 'H'					; Store value for 'H'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(442): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(347): warning: .cseg .db misalignment - padding zero byte
 001008 0049                          .db 'I'					; Store value for 'I'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(443): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(348): warning: .cseg .db misalignment - padding zero byte
 001009 004a                          .db 'J'					; Store value for 'J'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(444): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(349): warning: .cseg .db misalignment - padding zero byte
 00100a 004b                          .db 'K'					; Store value for 'K'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(445): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(350): warning: .cseg .db misalignment - padding zero byte
 00100b 004c                          .db 'L'					; Store value for 'L'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(446): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(351): warning: .cseg .db misalignment - padding zero byte
 00100c 004d                          .db 'M'					; Store value for 'M'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(447): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(352): warning: .cseg .db misalignment - padding zero byte
 00100d 004e                          .db 'N'					; Store value for 'N'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(448): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(353): warning: .cseg .db misalignment - padding zero byte
 00100e 004f                          .db 'O'					; Store value for 'O'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(449): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(354): warning: .cseg .db misalignment - padding zero byte
 00100f 0050                          .db 'P'					; Store value for 'P'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(450): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(355): warning: .cseg .db misalignment - padding zero byte
 001010 0051                          .db 'Q'					; Store value for 'Q'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(451): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(356): warning: .cseg .db misalignment - padding zero byte
 001011 0052                          .db 'R'					; Store value for 'R'
 001012 9508                          RET					    ; Return to origin of subroutine call
                                  
                                  .org 0x1100                  ; Set origin to FLASH 0x200
                                  SHIFTTABLE:
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(456): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(361): warning: .cseg .db misalignment - padding zero byte
 001100 0053                          .db 'S'					; Store value for 'S'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(457): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(362): warning: .cseg .db misalignment - padding zero byte
 001101 0054                          .db 'T'					; Store value for 'T'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(458): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(363): warning: .cseg .db misalignment - padding zero byte
 001102 0055                          .db 'U'					; Store value for 'U'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(459): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(364): warning: .cseg .db misalignment - padding zero byte
 001103 0056                          .db 'V'					; Store value for 'V'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(460): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(365): warning: .cseg .db misalignment - padding zero byte
 001104 0057                          .db 'W'					; Store value for 'W'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(461): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(366): warning: .cseg .db misalignment - padding zero byte
 001105 0058                          .db 'X'					; Store value for 'X'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(462): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(367): warning: .cseg .db misalignment - padding zero byte
 001106 0059                          .db 'Y'					; Store value for 'Y'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(463): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(368): warning: .cseg .db misalignment - padding zero byte
 001107 005a                          .db 'Z'					; Store value for 'Z'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(464): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(369): warning: .cseg .db misalignment - padding zero byte
 001108 0030                          .db '0'					; Store value for '0'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(465): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(370): warning: .cseg .db misalignment - padding zero byte
 001109 0031                          .db '1'					; Store value for '1'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(466): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(371): warning: .cseg .db misalignment - padding zero byte
 00110a 0032                          .db '2'					; Store value for '2'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(467): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(372): warning: .cseg .db misalignment - padding zero byte
 00110b 0033                          .db '3'					; Store value for '3'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(468): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(373): warning: .cseg .db misalignment - padding zero byte
 00110c 0034                          .db '4'					; Store value for '4'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(469): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(374): warning: .cseg .db misalignment - padding zero byte
 00110d 0035                          .db '5'					; Store value for '5'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(470): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(375): warning: .cseg .db misalignment - padding zero byte
 00110e 0036                          .db '6'					; Store value for '6'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(471): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(376): warning: .cseg .db misalignment - padding zero byte
 00110f 0037                          .db '7'					; Store value for '7'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(472): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(377): warning: .cseg .db misalignment - padding zero byte
 001110 0038                          .db '8'					; Store value for '8'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(473): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(378): warning: .cseg .db misalignment - padding zero byte
 001111 0039                          .db '9'					; Store value for '9'
 001112 9508                          RET						; Return to origin of subroutine call
                                  
@@ -1521,295 +1408,295 @@ C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone
 001203 ff00
 001204 8210
 001205 822d                      	.db 0x02, 0x40, 0x1E, 0xC0, 0x3D, 0x40, 0x00, 0xFF, 0x10, 0x82, 0x2D, 0x82 
-                                 .org 0x1300
+                                 .org 0x1240
                                  TABLEB:
-001300 4002
-001301 c002
-001302 c028
-001303 aa3d
-001304 963d
-001305 8228
-001306 8202
-001307 8228
-001308 6e3d
-001309 503d
-00130a 4028
-00130b 4002                      	.db 0x02, 0x40, 0x02, 0xC0, 0x28, 0xC0, 0x3D, 0xAA, 0x3D, 0x96, 0x28, 0x82, 0x02, 0x82, 0x28, 0x82, 0x3D, 0x6E, 0x3D, 0x50, 0x28, 0x40, 0x02, 0x40
-                                 .org 0x1400
+001240 4002
+001241 c002
+001242 c028
+001243 aa3d
+001244 963d
+001245 8228
+001246 8202
+001247 8228
+001248 6e3d
+001249 503d
+00124a 4028
+00124b 4002                      	.db 0x02, 0x40, 0x02, 0xC0, 0x28, 0xC0, 0x3D, 0xAA, 0x3D, 0x96, 0x28, 0x82, 0x02, 0x82, 0x28, 0x82, 0x3D, 0x6E, 0x3D, 0x50, 0x28, 0x40, 0x02, 0x40
+                                 .org 0x1280
                                  TABLEC:
-001400 a03d
-001401 c01d
-001402 a002
-001403 5802
-001404 401f
-001405 583d                      	.db 0x3D, 0xA0, 0x1D, 0xC0, 0x02, 0xA0, 0x02, 0x58, 0x1F, 0x40, 0x3D, 0x58
-                                 .org 0x1500
+001280 a03d
+001281 c01d
+001282 a002
+001283 5802
+001284 401f
+001285 583d                      	.db 0x3D, 0xA0, 0x1D, 0xC0, 0x02, 0xA0, 0x02, 0x58, 0x1F, 0x40, 0x3D, 0x58
+                                 .org 0x12C0
                                  TABLED:
-001500 4002
-001501 c102
-001502 c028
-001503 963d
-001504 6e3d
-001505 4028
-001506 4002                      	.db 0x02, 0x40, 0x02, 0xC1, 0x28, 0xC0, 0x3D, 0x96, 0x3D, 0x6E, 0x28, 0x40, 0x02, 0x40
-                                 .org 0x1600
+0012c0 4002
+0012c1 c102
+0012c2 c028
+0012c3 963d
+0012c4 6e3d
+0012c5 4028
+0012c6 4002                      	.db 0x02, 0x40, 0x02, 0xC1, 0x28, 0xC0, 0x3D, 0x96, 0x3D, 0x6E, 0x28, 0x40, 0x02, 0x40
+                                 .org 0x1300
                                  TABLEE:
-001600 c03d
-001601 c002
-001602 4002
-001603 403d
-001604 4002
-001605 8202
-001606 8228                      	.db 0x3D, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x3D, 0x40, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82
-                                 .org 0x1700
+001300 c03d
+001301 c002
+001302 4002
+001303 403d
+001304 4002
+001305 8202
+001306 8228                      	.db 0x3D, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x3D, 0x40, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82
+                                 .org 0x1340
                                  TABLEF:
-001700 c03d
-001701 c002
-001702 4002
-001703 8202
-001704 8228                      	.db 0x3D, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82
-                                 .org 0x1800
+001340 c03d
+001341 c002
+001342 4002
+001343 8202
+001344 8228                      	.db 0x3D, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82
+                                 .org 0x1480
                                  TABLEG:
-001800 a43e
-001801 bf33
-001802 c00d
-001803 a302
-001804 5a02
-001805 410d
-001806 4132
-001807 583e
-001808 7c3e
-001809 7b24                      	.db 0x3E, 0xA4, 0x33, 0xBF, 0x0D, 0xC0, 0x02, 0xA3, 0x02, 0x5A, 0x0D, 0x41, 0x32, 0x41, 0x3E, 0x58, 0x3E, 0x7C, 0x24, 0x7B
-                                 .org 0x1900
+001480 a43e
+001481 bf33
+001482 c00d
+001483 a302
+001484 5a02
+001485 410d
+001486 4132
+001487 583e
+001488 7c3e
+001489 7b24                      	.db 0x3E, 0xA4, 0x33, 0xBF, 0x0D, 0xC0, 0x02, 0xA3, 0x02, 0x5A, 0x0D, 0x41, 0x32, 0x41, 0x3E, 0x58, 0x3E, 0x7C, 0x24, 0x7B
+                                 .org 0x14C0
                                  TABLEH:
-001900 c002
-001901 4102
-001902 8202
-001903 823e
-001904 c03e
-001905 403e                      	.db 0x02, 0xC0, 0x02, 0x41, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0xC0, 0x3E, 0x40
-                                 .org 0x2000
+0014c0 c002
+0014c1 4102
+0014c2 8202
+0014c3 823e
+0014c4 c03e
+0014c5 403e                      	.db 0x02, 0xC0, 0x02, 0x41, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0xC0, 0x3E, 0x40
+                                 .org 0x1500
                                  TABLEI:
+001500 c002
+001501 c03e
+001502 c01f
+001503 401f
+001504 4002
+001505 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x1F, 0xC0, 0x1F, 0x40, 0x02, 0x40, 0x3E, 0x40
+                                 .org 0x1540
+                                 TABLEJ:
+001540 c03e
+001541 6f3e
+001542 4021
+001543 6f02                      	.db 0x3E, 0xC0, 0x3E, 0x6F, 0x21, 0x40, 0x02, 0x6F
+                                 .org 0x1580
+                                 TABLEK:
+001580 c002
+001581 8202
+001582 c03e
+001583 8202
+001584 403e
+001585 8202
+001586 4002                      	.db 0x02, 0xC0, 0x02, 0x82, 0x3E, 0xC0, 0x02, 0x82, 0x3E, 0x40, 0x02, 0x82, 0x02, 0x40
+                                 .org 0x15C0
+                                 TABLEL:
+0015c0 c002
+0015c1 4002
+0015c2 403e                      	.db 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40
+                                 .org 0x1600
+                                 TABLEM:
+001600 4002
+001601 c011
+001602 4020
+001603 bf2e
+001604 403e                      	.db 0x02, 0x40, 0x11, 0xC0, 0x20, 0x40, 0x2E, 0xBF, 0x3E, 0x40
+                                 .org 0x1640
+                                 TABLEN:
+001640 4002
+001641 c002
+001642 403e
+001643 c03e                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0x40, 0x3E, 0xC0
+                                 .org 0x1680
+                                 TABLEO:
+001680 c014
+001681 a002
+001682 5c02
+001683 4014
+001684 4029
+001685 5b3e
+001686 a03e
+001687 c029
+001688 c014                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0
+                                 .org 0x16C0
+                                 TABLEP:
+0016c0 4002
+0016c1 c002
+0016c2 c03e
+0016c3 823e
+0016c4 8202                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82
+                                 .org 0x1700
+                                 TABLEQ:
+001700 c014
+001701 a002
+001702 5c02
+001703 4014
+001704 4029
+001705 5b3e
+001706 a03e
+001707 c029
+001708 c014
+001709 ff00
+00170a 5a28
+00170b 403e                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x00, 0xFF, 0x28, 0x5A, 0x3E, 0x40
+                                 .org 0x1740
+                                 TABLER:
+001740 4002
+001741 c002
+001742 c03e
+001743 823e
+001744 8202
+001745 403e                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x3E, 0x40
+                                 .org 0x1780
+                                 TABLES:
+001780 c03e
+001781 c002
+001782 8202
+001783 823e
+001784 403e
+001785 4002                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40
+                                 .org 0x17C0
+                                 TABLET:
+0017c0 4021
+0017c1 c021
+0017c2 c002
+0017c3 c03e                      	.db 0x21, 0x40, 0x21, 0xC0, 0x02, 0xC0, 0x3E, 0xC0
+                                 .org 0x1800
+                                 TABLEU:
+001800 c002
+001801 4002
+001802 403e
+001803 c03e                      	.db 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0xC0
+                                 .org 0x1840
+                                 TABLEV:
+001840 c002
+001841 4020
+001842 c03e                      	.db 0x02, 0xC0, 0x20, 0x40, 0x3E, 0xC0
+                                 .org 0x1880
+                                 TABLEW:
+001880 c002
+001881 4014
+001882 9b21
+001883 402d
+001884 c03e                      	.db 0x02, 0xC0, 0x14, 0x40, 0x21, 0x9B, 0x2D, 0x40, 0x3E, 0xC0
+                                 .org 0x18C0
+                                 TABLEX:
+0018c0 c002
+0018c1 403e
+0018c2 ff00
+0018c3 4002
+0018c4 c03e                      	.db 0x02, 0xC0, 0x3E, 0x40, 0x00, 0xFF, 0x02, 0x40, 0x3E, 0xC0
+                                 .org 0x1900
+                                 TABLEY:
+001900 c002
+001901 8220
+001902 4020
+001903 8220
+001904 c03e                      	.db 0x02, 0xC0, 0x20, 0x82, 0x20, 0x40, 0x20, 0x82, 0x3E, 0xC0
+                                 .org 0x1940
+                                 TABLEZ:
+001940 c002
+001941 c03e
+001942 4002
+001943 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x02, 0x40, 0x3E, 0x40
+                                 .org 0x1980
+                                 TABLE0:
+001980 c014
+001981 a002
+001982 5c02
+001983 4014
+001984 4029
+001985 5b3e
+001986 a03e
+001987 c029
+001988 c014                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0
+                                 .org 0x19C0
+                                 TABLE1:
+0019c0 c01f
+0019c1 401f                      	.db 0x1F, 0xC0, 0x1F, 0x40
+                                 .org 0x2000
+                                 TABLE2:
 002000 c002
 002001 c03e
-002002 c01f
-002003 401f
+002002 823e
+002003 8202
 002004 4002
-002005 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x1F, 0xC0, 0x1F, 0x40, 0x02, 0x40, 0x3E, 0x40
-                                 .org 0x2100
-                                 TABLEJ:
-002100 c03e
-002101 6f3e
-002102 4021
-002103 6f02                      	.db 0x3E, 0xC0, 0x3E, 0x6F, 0x21, 0x40, 0x02, 0x6F
-                                 .org 0x2200
-                                 TABLEK:
-002200 c002
-002201 8202
-002202 c03e
-002203 8202
-002204 403e
-002205 8202
-002206 4002                      	.db 0x02, 0xC0, 0x02, 0x82, 0x3E, 0xC0, 0x02, 0x82, 0x3E, 0x40, 0x02, 0x82, 0x02, 0x40
-                                 .org 0x2300
-                                 TABLEL:
-002300 c002
-002301 4002
-002302 403e                      	.db 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40
-                                 .org 0x2400
-                                 TABLEM:
-002400 4002
-002401 c011
-002402 4020
-002403 bf2e
-002404 403e                      	.db 0x02, 0x40, 0x11, 0xC0, 0x20, 0x40, 0x2E, 0xBF, 0x3E, 0x40
-                                 .org 0x2500
-                                 TABLEN:
-002500 4002
-002501 c002
-002502 403e
-002503 c03e                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0x40, 0x3E, 0xC0
-                                 .org 0x2600
-                                 TABLEO:
-002600 c014
-002601 a002
-002602 5c02
-002603 4014
-002604 4029
-002605 5b3e
-002606 a03e
-002607 c029
-002608 c014                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0
-                                 .org 0x2700
-                                 TABLEP:
-002700 4002
-002701 c002
-002702 c03e
-002703 823e
-002704 8202                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82
-                                 .org 0x2800
-                                 TABLEQ:
-002800 c014
-002801 a002
-002802 5c02
-002803 4014
-002804 4029
-002805 5b3e
-002806 a03e
-002807 c029
-002808 c014
-002809 ff00
-00280a 5a28
-00280b 403e                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x00, 0xFF, 0x28, 0x5A, 0x3E, 0x40
-                                 .org 0x2900
-                                 TABLER:
-002900 4002
-002901 c002
-002902 c03e
-002903 823e
-002904 8202
-002905 403e                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x3E, 0x40
-                                 .org 0x3000
-                                 TABLES:
-003000 c03e
-003001 c002
-003002 8202
-003003 823e
-003004 403e
-003005 4002                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40
-                                 .org 0x3100
-                                 TABLET:
-003100 4021
-003101 c021
-003102 c002
-003103 c03e                      	.db 0x21, 0x40, 0x21, 0xC0, 0x02, 0xC0, 0x3E, 0xC0
-                                 .org 0x3200
-                                 TABLEU:
-003200 c002
-003201 4002
-003202 403e
-003203 c03e                      	.db 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0xC0
-                                 .org 0x3300
-                                 TABLEV:
-003300 c002
-003301 4020
-003302 c03e                      	.db 0x02, 0xC0, 0x20, 0x40, 0x3E, 0xC0
-                                 .org 0x3400
-                                 TABLEW:
-003400 c002
-003401 4014
-003402 9b21
-003403 402d
-003404 c03e                      	.db 0x02, 0xC0, 0x14, 0x40, 0x21, 0x9B, 0x2D, 0x40, 0x3E, 0xC0
-                                 .org 0x3500
-                                 TABLEX:
-003500 c002
-003501 403e
-003502 ff00
-003503 4002
-003504 c03e                      	.db 0x02, 0xC0, 0x3E, 0x40, 0x00, 0xFF, 0x02, 0x40, 0x3E, 0xC0
-                                 .org 0x3600
-                                 TABLEY:
-003600 c002
-003601 8220
-003602 4020
-003603 8220
-003604 c03e                      	.db 0x02, 0xC0, 0x20, 0x82, 0x20, 0x40, 0x20, 0x82, 0x3E, 0xC0
-                                 .org 0x3700
-                                 TABLEZ:
-003700 c002
-003701 c03e
-003702 4002
-003703 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x02, 0x40, 0x3E, 0x40
-                                 .org 0x3800
-                                 TABLE0:
-003800 c014
-003801 a002
-003802 5c02
-003803 4014
-003804 4029
-003805 5b3e
-003806 a03e
-003807 c029
-003808 c014                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0
-                                 .org 0x3900
-                                 TABLE1:
-003900 c01f
-003901 401f                      	.db 0x1F, 0xC0, 0x1F, 0x40
-                                 .org 0x4000
-                                 TABLE2:
-004000 c002
-004001 c03e
-004002 823e
-004003 8202
-004004 4002
-004005 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x02, 0x40, 0x3E, 0x40
-                                 .org 0x4100
+002005 403e                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x02, 0x40, 0x3E, 0x40
+                                 .org 0x2040
                                  TABLE3:
-004100 c002
-004101 c03e
-004102 823e
-004103 8214
-004104 823e
-004105 403e
-004106 4002                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x14, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40
-                                 .org 0x4200
+002040 c002
+002041 c03e
+002042 823e
+002043 8214
+002044 823e
+002045 403e
+002046 4002                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x14, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40
+                                 .org 0x2080
                                  TABLE4:
-004200 6e3e
-004201 6e02
-004202 c036
-004203 4036                      	.db 0x3E, 0x6E, 0x02, 0x6E, 0x36, 0xC0, 0x36, 0x40
-                                 .org 0x4300
+002080 6e3e
+002081 6e02
+002082 c036
+002083 4036                      	.db 0x3E, 0x6E, 0x02, 0x6E, 0x36, 0xC0, 0x36, 0x40
+                                 .org 0x20C0
                                  TABLE5:
-004300 c03e
-004301 c002
-004302 8902
-004303 893e
-004304 5d3e
-004305 4031
-004306 4011
-004307 5c02                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x89, 0x3E, 0x89, 0x3E, 0x5D, 0x31, 0x40, 0x11, 0x40, 0x02, 0x5C
-                                 .org 0x4400
+0020c0 c03e
+0020c1 c002
+0020c2 8902
+0020c3 893e
+0020c4 5d3e
+0020c5 4031
+0020c6 4011
+0020c7 5c02                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x89, 0x3E, 0x89, 0x3E, 0x5D, 0x31, 0x40, 0x11, 0x40, 0x02, 0x5C
+                                 .org 0x2100
                                  TABLE6:
-004400 c03e
-004401 c002
-004402 4002
-004403 403e
-004404 823e
-004405 8202                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0x82, 0x02, 0x82
-                                 .org 0x4500
+002100 c03e
+002101 c002
+002102 4002
+002103 403e
+002104 823e
+002105 8202                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0x82, 0x02, 0x82
+                                 .org 0x2140
                                  TABLE7:
-004500 c002
-004501 c03e
-004502 4002                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x02, 0x40
-                                 .org 0x4600
+002140 c002
+002141 c03e
+002142 4002                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x02, 0x40
+                                 .org 0x2180
                                  TABLE8:
-004600 8202
-004601 5702
-004602 400f
-004603 4032
-004604 583e
-004605 aa3e
-004606 c033
-004607 c00f
-004608 aa02
-004609 8202
-00460a 823e                      	.db 0x02, 0x82, 0x02, 0x57, 0x0F, 0x40, 0x32, 0x40, 0x3E, 0x58, 0x3E, 0xAA, 0x33, 0xC0, 0x0F, 0xC0, 0x02, 0xAA, 0x02, 0x82, 0x3E, 0x82
-                                 .org 0x4700
+002180 8202
+002181 5702
+002182 400f
+002183 4032
+002184 583e
+002185 aa3e
+002186 c033
+002187 c00f
+002188 aa02
+002189 8202
+00218a 823e                      	.db 0x02, 0x82, 0x02, 0x57, 0x0F, 0x40, 0x32, 0x40, 0x3E, 0x58, 0x3E, 0xAA, 0x33, 0xC0, 0x0F, 0xC0, 0x02, 0xAA, 0x02, 0x82, 0x3E, 0x82
+                                 .org 0x21C0
                                  TABLE9:
-004700 403e
-004701 c03e
-004702 c002
-004703 8202
-004704 823e                      	.db 0x3E, 0x40, 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82
-                                 .org 0x4800
+0021c0 403e
+0021c1 c03e
+0021c2 c002
+0021c3 8202
+0021c4 823e                      	.db 0x3E, 0x40, 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82
+                                 .org 0x2200
                                  TABLESTAR: ; Character table for the test pattern (square for now)
-004800 0000
-004801 ff00
-004802 ffff
-004803 00ff
-004804 0000
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(586): warning: .cseg .db misalignment - padding zero byte
+002200 0000
+002201 ff00
+002202 ffff
+002203 00ff
+002204 0000
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(491): warning: .cseg .db misalignment - padding zero byte
 
 
 RESOURCE USE INFORMATION
@@ -1848,7 +1735,7 @@ fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   3 jmp   :   0
 ld    :   0 ldd   :   0 ldi   :  32 lds   :   0 lpm   :  12 lsl   :   0 
 lsr   :   0 mov   :   4 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :  21 or    :   0 ori   :   0 out   :  15 pop   :   0 
-push  :   0 rcall :  25 ret   :  12 reti  :   7 rjmp  :  17 rol   :   0 
+push  :   0 rcall :  25 ret   :  11 reti  :   7 rjmp  :  17 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :  22 sbic  :   1 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   1 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1857,10 +1744,10 @@ sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0
 Instructions used: 25 out of 113 (22.1%)
 
 "ATmega328P" memory use summary [bytes]:
-Segment   Begin    End      Code   Data   Used    Size   Use%  Warn
---------------------------------------------------------------------
-[.cseg] 0x000000 0x00900c    486    518   1004   32768   3.1%  OVER
+Segment   Begin    End      Code   Data   Used    Size   Use%
+---------------------------------------------------------------
+[.cseg] 0x000000 0x00440c    484    518   1002   32768   3.1%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
-Assembly complete, 0 errors, 55 warnings
+Assembly complete, 0 errors, 37 warnings
