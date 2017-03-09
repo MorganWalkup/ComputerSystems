@@ -27,6 +27,15 @@ INITIALIZE:
 	OUT DDRC, R17			; Set PORTC as input
 	CLR R24					; Clear SHIFT Register
 	CLR R26					; Clear MODE Register
+	CLR R19					; Clear LaserTemp Register
+	CLR R1					; Clear Char1L Register
+	CLR R2					; Clear Char1H Register
+	CLR R3
+	CLR R4
+	CLR R5
+	CLR R6
+	CLR R7
+	CLR R8
 
 	; Set up LCD
 	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
@@ -126,6 +135,7 @@ TESTFINISH:
 	LDI ZH, high(TABLESTAR*2) ; Set z-pointer to TABLESTAR beginning
 	LDI ZL, low(TABLESTAR*2)  ; Set z-pointer to TABLESTAR beginning
 	; Output coordinates
+	CLR R19					; Clear the laser offset register
 	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
 	; Jump back
 	RJMP FINISH				; Jump back to FINISH
@@ -134,6 +144,49 @@ LASERFINISH:
 	; Select PIA
 	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
 	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
+	; Initialize Laser Character Registers
+	LDI R19, high(TABLEA*2) ; Load TABLEA beginning address into R19  
+	MOV R2, R19			    ; Set Char1L register to TABLEA beginning
+	LDI R19, low(TABLEA*2)  ; Load TABLEA beginning address into R19
+	MOV R1, R19			    ; Set Char1H to TABLEA beginning
+	LDI R19, high(TABLE1*2) ; Load TABLEA beginning address into R19  
+	MOV R4, R19			    ; Set Char1L register to TABLEA beginning
+	LDI R19, low(TABLE1*2)  ; Load TABLEA beginning address into R19
+	MOV R3, R19			    ; Set Char1H to TABLEA beginning
+	LDI R19, high(TABLE2*2) ; Load TABLEA beginning address into R19  
+	MOV R6, R19			    ; Set Char1L register to TABLEA beginning
+	LDI R19, low(TABLE2*2)  ; Load TABLEA beginning address into R19
+	MOV R5, R19			    ; Set Char1H to TABLEA beginning
+	LDI R19, high(TABLE3*2) ; Load TABLEA beginning address into R19  
+	MOV R8, R19			    ; Set Char1L register to TABLEA beginning
+	LDI R19, low(TABLE3*2)  ; Load TABLEA beginning address into R19
+	MOV R7, R19			    ; Set Char1H to TABLEA beginning
+	CLR R19					; Clear the R19 register
+	; Initialize z-pointer for first character
+	MOV ZH, R2				; Set z-pointer to TABLEA beginning
+	MOV ZL, R1				; Set z-pointer to TABLEA beginning
+	; Output coordinates for first character
+	CLR R19					; Clear the laser offset register
+	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+	; Initialize z-pointer for second character
+	MOV ZH, R4				; Set z-pointer to TABLEA beginning
+	MOV ZL, R3				; Set z-pointer to TABLEA beginning
+	; Output coordinates for second character
+	LDI R19, 0x40			; Set the laser offset for the second character
+	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+	; Initialize z-pointer for third character
+	MOV ZH, R6				; Set z-pointer to TABLEA beginning
+	MOV ZL, R5				; Set z-pointer to TABLEA beginning
+	; Output coordinates for third character
+	LDI R19, 0x80			; Set the laser offset for the third character
+	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+	; Initialize z-pointer for fourth character
+	MOV ZH, R8				; Set z-pointer to TABLEA beginning
+	MOV ZL, R7				; Set z-pointer to TABLEA beginning
+	; Output coordinates for fourth  character
+	LDI R19, 0xC0			; Set the laser offset for the fourth character
+	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+	; Jump back
 	RJMP FINISH				; Jump back to FINISH
 
 ANIMFINISH:
@@ -235,10 +288,11 @@ LASERTESTPATTERN:
 	MOV R16, R0				; Load the value for R0 into R16
 	CPI R16, 0x11			; Compares the value in R16 to "end of table" code
 	BREQ LASERTESTEND		; If end of table, branch to LASERTESTEND
+	ADD R16, R19			; Add the laser offset value to the x-coordinate
 	CBI PORTB, 0			; Selects Data Registers
 	CBI PORTB, 1			; Selects DRA
 	OUT PORTD, R16			; Writes the data to DRA of the PIA
-	RCALL EXEC				; Executes Instruction
+	RCALL EXEC				; Executes Instruction 
 	INC ZL					; Increments the z-pointer to the next point in the table
 	; Y-Coordinate
 	LPM						; Load the value pointed to by Z, store it in R0
@@ -312,7 +366,7 @@ DUMBRET:
 ;TABLES
 ;===================================================================================================
 
-.org 0x1000					; Set origin to FLASH 0x100
+.org 0x1000					; Set origin to FLASH 0x1000
 CHARTABLE:
     .db 'A'					; Store value for 'A'
     .db 'B'					; Store value for 'B'
@@ -334,7 +388,7 @@ CHARTABLE:
     .db 'R'					; Store value for 'R'
     RET					    ; Return to origin of subroutine call
 
-.org 0x1100                  ; Set origin to FLASH 0x200
+.org 0x1100                  ; Set origin to FLASH 0x1100
 SHIFTTABLE:
     .db 'S'					; Store value for 'S'
     .db 'T'					; Store value for 'T'
