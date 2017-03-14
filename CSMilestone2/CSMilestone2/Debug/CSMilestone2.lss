@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm Thu Mar 09 10:22:51 2017
+AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm Tue Mar 14 11:44:25 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
@@ -1096,92 +1096,94 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 00004c b92b                      	OUT PORTD, R18			; Writes the data to the PIA
 00004d d06d                      	RCALL EXEC				; Execute Instruction
                                  
+                                 LASERCHARINIT:
+                                 	; Initialize Laser Character Registers
+00004e e430                      	LDI R19, high(TABLEBLANK*2) ; Load TABLEA beginning address into R19  
+00004f 2e23                      	MOV R2, R19			    ; Set Char1L register to TABLEA beginning
+000050 e830                      	LDI R19, low(TABLEBLANK*2)  ; Load TABLEA beginning address into R19
+000051 2e13                      	MOV R1, R19			    ; Set Char1H to TABLEA beginning
+000052 e430                      	LDI R19, high(TABLEBLANK*2) ; Load TABLEA beginning address into R19  
+000053 2e43                      	MOV R4, R19			    ; Set Char1L register to TABLEA beginning
+000054 e830                      	LDI R19, low(TABLEBLANK*2)  ; Load TABLEA beginning address into R19
+000055 2e33                      	MOV R3, R19			    ; Set Char1H to TABLEA beginning
+000056 e430                      	LDI R19, high(TABLEBLANK*2) ; Load TABLEA beginning address into R19  
+000057 2e63                      	MOV R6, R19			    ; Set Char1L register to TABLEA beginning
+000058 e830                      	LDI R19, low(TABLEBLANK*2)  ; Load TABLEA beginning address into R19
+000059 2e53                      	MOV R5, R19			    ; Set Char1H to TABLEA beginning
+00005a e430                      	LDI R19, high(TABLEBLANK*2) ; Load TABLEA beginning address into R19  
+00005b 2e83                      	MOV R8, R19			    ; Set Char1L register to TABLEA beginning
+00005c e830                      	LDI R19, low(TABLEBLANK*2)  ; Load TABLEA beginning address into R19
+00005d 2e73                      	MOV R7, R19			    ; Set Char1H to TABLEA beginning
+00005e 2733                      	CLR R19					; Clear the R19 register
+                                 
                                  FINISH:
                                  	; Call particular routines based on MODE register
-00004e 30a0                      	CPI R26, 0				; Compare MODE register with zero
-00004f f039                      	BREQ KEYFINISH			; Branch to KEYFINISH if MODE = 0
-000050 30a1                      	CPI R26, 1				; Compare MODE register with one
-000051 f041                      	BREQ TESTFINISH			; Branch to TESTFINISH if MODE = 1
-000052 30a2                      	CPI R26, 2				; Compare MODE register with two
-000053 f069                      	BREQ LASERFINISH		; Branch to LASERFINISH if MODE = 2
-000054 30a3                      	CPI R26, 3				; Compare MODE register with three
-000055 f179                      	BREQ ANIMFINISH			; Branch to ANIMFINISH if MODE = 3
-000056 cff7                      	RJMP FINISH				; Jump back to start of FINISH
+00005f 30a0                      	CPI R26, 0				; Compare MODE register with zero
+000060 f039                      	BREQ KEYFINISH			; Branch to KEYFINISH if MODE = 0
+000061 30a1                      	CPI R26, 1				; Compare MODE register with one
+000062 f041                      	BREQ TESTFINISH			; Branch to TESTFINISH if MODE = 1
+000063 30a2                      	CPI R26, 2				; Compare MODE register with two
+000064 f069                      	BREQ LASERFINISH		; Branch to LASERFINISH if MODE = 2
+000065 30a3                      	CPI R26, 3				; Compare MODE register with three
+000066 f0f1                      	BREQ ANIMFINISH			; Branch to ANIMFINISH if MODE = 3
+000067 cff7                      	RJMP FINISH				; Jump back to start of FINISH
                                  
                                  KEYFINISH:
                                  	; Select LCD
-000057 9a2b                      	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
-000058 9a2c                      	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
-000059 cff4                      	RJMP FINISH				; Jump back to FINISH
+000068 9a2b                      	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
+000069 9a2c                      	SBI PORTB, 4			; Set PortB, bit 4 to select LCD
+00006a cff4                      	RJMP FINISH				; Jump back to FINISH
                                  
                                  TESTFINISH:
                                  	; Select PIA
-00005a 982b                      	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
-00005b 982c                      	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
+00006b 982b                      	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
+00006c 982c                      	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
                                  	; Initialize z-pointer
-00005c e4f4                      	LDI ZH, high(TABLESTAR*2) ; Set z-pointer to TABLESTAR beginning
-00005d e0e0                      	LDI ZL, low(TABLESTAR*2)  ; Set z-pointer to TABLESTAR beginning
+00006d e4f0                      	LDI ZH, high(TABLESTAR*2) ; Set z-pointer to TABLESTAR beginning
+00006e e0e0                      	LDI ZL, low(TABLESTAR*2)  ; Set z-pointer to TABLESTAR beginning
                                  	; Output coordinates
-00005e 2733                      	CLR R19					; Clear the laser offset register
-00005f d06e                      	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+00006f 2733                      	CLR R19					; Clear the laser offset register
+000070 d05d                      	RCALL LASEROUTPUT		; Call the laser output subroutine
                                  	; Jump back
-000060 cfed                      	RJMP FINISH				; Jump back to FINISH
+000071 cfed                      	RJMP FINISH				; Jump back to FINISH
                                  
                                  LASERFINISH:
                                  	; Select PIA
-000061 982b                      	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
-000062 982c                      	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
-                                 	; Initialize Laser Character Registers
-000063 e234                      	LDI R19, high(TABLEA*2) ; Load TABLEA beginning address into R19  
-000064 2e23                      	MOV R2, R19			    ; Set Char1L register to TABLEA beginning
-000065 e030                      	LDI R19, low(TABLEA*2)  ; Load TABLEA beginning address into R19
-000066 2e13                      	MOV R1, R19			    ; Set Char1H to TABLEA beginning
-000067 e333                      	LDI R19, high(TABLE1*2) ; Load TABLEA beginning address into R19  
-000068 2e43                      	MOV R4, R19			    ; Set Char1L register to TABLEA beginning
-000069 e830                      	LDI R19, low(TABLE1*2)  ; Load TABLEA beginning address into R19
-00006a 2e33                      	MOV R3, R19			    ; Set Char1H to TABLEA beginning
-00006b e430                      	LDI R19, high(TABLE2*2) ; Load TABLEA beginning address into R19  
-00006c 2e63                      	MOV R6, R19			    ; Set Char1L register to TABLEA beginning
-00006d e030                      	LDI R19, low(TABLE2*2)  ; Load TABLEA beginning address into R19
-00006e 2e53                      	MOV R5, R19			    ; Set Char1H to TABLEA beginning
-00006f e430                      	LDI R19, high(TABLE3*2) ; Load TABLEA beginning address into R19  
-000070 2e83                      	MOV R8, R19			    ; Set Char1L register to TABLEA beginning
-000071 e830                      	LDI R19, low(TABLE3*2)  ; Load TABLEA beginning address into R19
-000072 2e73                      	MOV R7, R19			    ; Set Char1H to TABLEA beginning
-000073 2733                      	CLR R19					; Clear the R19 register
+000072 982b                      	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
+000073 982c                      	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
                                  	; Initialize z-pointer for first character
 000074 2df2                      	MOV ZH, R2				; Set z-pointer to TABLEA beginning
 000075 2de1                      	MOV ZL, R1				; Set z-pointer to TABLEA beginning
                                  	; Output coordinates for first character
 000076 2733                      	CLR R19					; Clear the laser offset register
-000077 d056                      	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+000077 d056                      	RCALL LASEROUTPUT		; Call the laser test pattern subroutine
                                  	; Initialize z-pointer for second character
 000078 2df4                      	MOV ZH, R4				; Set z-pointer to TABLEA beginning
 000079 2de3                      	MOV ZL, R3				; Set z-pointer to TABLEA beginning
                                  	; Output coordinates for second character
 00007a e430                      	LDI R19, 0x40			; Set the laser offset for the second character
-00007b d052                      	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+00007b d052                      	RCALL LASEROUTPUT		; Call the laser test pattern subroutine
                                  	; Initialize z-pointer for third character
 00007c 2df6                      	MOV ZH, R6				; Set z-pointer to TABLEA beginning
 00007d 2de5                      	MOV ZL, R5				; Set z-pointer to TABLEA beginning
                                  	; Output coordinates for third character
 00007e e830                      	LDI R19, 0x80			; Set the laser offset for the third character
-00007f d04e                      	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+00007f d04e                      	RCALL LASEROUTPUT		; Call the laser test pattern subroutine
                                  	; Initialize z-pointer for fourth character
 000080 2df8                      	MOV ZH, R8				; Set z-pointer to TABLEA beginning
 000081 2de7                      	MOV ZL, R7				; Set z-pointer to TABLEA beginning
                                  	; Output coordinates for fourth  character
 000082 ec30                      	LDI R19, 0xC0			; Set the laser offset for the fourth character
-000083 d04a                      	RCALL LASERTESTPATTERN	; Call the laser test pattern subroutine
+000083 d04a                      	RCALL LASEROUTPUT		; Call the laser test pattern subroutine
                                  	; Jump back
-000084 cfc9                      	RJMP FINISH				; Jump back to FINISH
+000084 cfda                      	RJMP FINISH				; Jump back to FINISH
                                  
                                  ANIMFINISH:
                                  	; Select PIA
 000085 982b                      	CBI PORTB, 3			; Clear PortB, bit 3 to select PIA
 000086 982c                      	CBI PORTB, 4			; Clear PortB, bit 4 to select PIA
                                  	;RCALL LASERANIMATION	; Call the Laser Animation subroutine
-000087 cfc6                      	RJMP FINISH				; Jump back to FINISH
+000087 cfd7                      	RJMP FINISH				; Jump back to FINISH
                                  
                                  ;==================================================================================
                                  ; FUNCTIONS
@@ -1269,16 +1271,16 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 0000cc 0000                      	NOP						; Wait for one cycle
 0000cd 9508                      	RET						; Return to origin of subroutine call
                                  	
-                                 LASERTESTPATTERN:
+                                 LASEROUTPUT:
                                  	; Get value in table
 0000ce 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
 0000cf 2d00                      	MOV R16, R0				; Load the value for R0 into R16
 0000d0 3101                      	CPI R16, 0x11			; Compares the value in R16 to "end of table" code
-0000d1 f0d1                      	BREQ LASERTESTEND		; If end of table, branch to LASERTESTEND
+0000d1 f0d1                      	BREQ LASEREND			; If end of table, branch to LASEREND
 0000d2 3000                      	CPI R16, 0x00			; Compares the value in R16 to "laser off" code
-0000d3 f089                      	BREQ LASERTESTOFF		; If "laser off", branch to LASERTESTOFF
+0000d3 f089                      	BREQ LASEROFF			; If "laser off", branch to LASEROFF
 0000d4 3f0f                      	CPI R16, 0xFF			; Compares the value in R16 to "laser on" code
-0000d5 f091                      	BREQ LASERTESTON		; If "laser on", branch to LASERTESTON
+0000d5 f091                      	BREQ LASERON			; If "laser on", branch to LASERON
                                  	; X-Coordinate
 0000d6 0f03                      	ADD R16, R19			; Add the laser offset value to the x-coordinate
 0000d7 9828                      	CBI PORTB, 0			; Selects Data Registers
@@ -1296,17 +1298,17 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 0000e1 dfd9                      	RCALL EXEC				; Execute Instruction	
 0000e2 95e3                      	INC ZL					; Increments the z-pointer to the next point in the table
 0000e3 dfcd                      	RCALL LASERDELAY		; Delay so the mirrors of the laser can catch up
-0000e4 cfe9                      	RJMP LASERTESTPATTERN	; Jump back to LASERTESTPATTERN	
-                                 LASERTESTOFF:
+0000e4 cfe9                      	RJMP LASEROUTPUT		; Jump back to LASEROUTPUT	
+                                 LASEROFF:
 0000e5 982d                      	CBI PORTB, 5			; Turn off laser
 0000e6 95e3                      	INC ZL
-0000e7 cfe6                      	RJMP LASERTESTPATTERN	; Jump back to LASERTESTPATTERN
-                                 LASERTESTON:
+0000e7 cfe6                      	RJMP LASEROUTPUT		; Jump back to LASERTESTPATTERN
+                                 LASERON:
 0000e8 9a2d                      	SBI PORTB, 5			; Turn on laser
 0000e9 95e3                      	INC ZL
 0000ea dfc6                      	RCALL LASERDELAY		; Delay so the mirrors of the laser can catch up
-0000eb cfe2                      	RJMP LASERTESTPATTERN	; Jump back to LASERTESTPATTERN
-                                 LASERTESTEND:
+0000eb cfe2                      	RJMP LASEROUTPUT		; Jump back to LASERTESTPATTERN
+                                 LASEREND:
 0000ec 9508                      	RET						; Return to where it was called
                                  	
                                  PCINT:
@@ -1315,52 +1317,85 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
 0000ef 9518                      	RETI					; Return from interrupt
 0000f0 b106                      	IN R16, PINC			; Put data from PINC into R16
 0000f1 710f                      	ANDI R16, 0x1F			; AND R16 with 0x1F
-0000f2 3103                      	CPI R16, 0x13			; Compare R16 with the hex value for the "mode" key
-0000f3 f0c9                      	BREQ MODE				; If R16 = Mode, branch to MODE routine
-0000f4 30a0                      	CPI R26, 0				; Compare MODE register to 0
-0000f5 f4e9                      	BRNE DUMBRET			; Branch to DUMBRET if MODE != 0			
-0000f6 3102                      	CPI R16, 0x12			; Compare R16 with the hex value for the "shift" key
-0000f7 f099                      	BREQ SHIFT				; If R16 = Shift, branch to SHIFT routine
-0000f8 c000                      	RJMP CHARSELECT			; Jump to CHARSELECT
+0000f2 3102                      	CPI R16, 0x12			; Compare R16 with the hex value for the "shift" key
+0000f3 f1a1                      	BREQ SHIFT				; If R16 = Shift, branch to SHIFT routine
+0000f4 3103                      	CPI R16, 0x13			; Compare R16 with the hex value for the "mode" key
+0000f5 f1a1                      	BREQ MODE				; If R16 = Mode, branch to MODE routine
+0000f6 30a0                      	CPI R26, 0				; Compare MODE register to 0
+0000f7 f019                      	BREQ CHARSELECT			; Branch to CHARSELECT if MODE == 0			
+0000f8 30a2                      	CPI R26, 2				; Compare MODE register to 2
+0000f9 f099                      	BREQ LASERCHARSELECT	; Branch to LASERCHARSELECT if MODE == 2	
+0000fa 9518                      	RETI					; Return from the interrupt
                                  
                                  CHARSELECT:
-0000f9 3f8f                      	CPI R24, 0xFF			; Compare Shift Register to 0xFF
-0000fa f041                      	BREQ SHIFTSELECT		; If Shift Register = 0xFF, branch to SHIFTSELECT
-0000fb e2f0                      	LDI ZH, high(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000fc e0e0                      	LDI ZL, low(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-0000fd 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
-0000fe 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
-0000ff 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
-000100 2d00                      	MOV R16, R0				; Load the value for R0 into R16
-000101 df91                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
-000102 9518                      	RETI					; Return from the interrupt
+0000fb 3f8f                      	CPI R24, 0xFF			; Compare Shift Register to 0xFF
+0000fc f041                      	BREQ SHIFTSELECT		; If Shift Register = 0xFF, branch to SHIFTSELECT
+0000fd e2f0                      	LDI ZH, high(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000fe e0e0                      	LDI ZL, low(CHARTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+0000ff 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
+000100 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
+000101 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
+000102 2d00                      	MOV R16, R0				; Load the value for R0 into R16
+000103 df8f                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
+000104 9518                      	RETI					; Return from the interrupt
                                  
                                  SHIFTSELECT:
-000103 e2f2                      	LDI ZH, high(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-000104 e0e0                      	LDI ZL, low(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
-000105 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
-000106 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
-000107 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
-000108 2d00                      	MOV R16, R0				; Load the value for R0 into R16
-000109 df89                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
-00010a 9518                      	RETI					; Return from the interrupt
-                                 
-                                 SHIFT:
-00010b 9580                      	COM R24					; Complement the R1 (shift) register
+000105 e2f0                      	LDI ZH, high(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+000106 eae0                      	LDI ZL, low(SHIFTTABLE*2)	; Set Z-pointer to CHARTABLE beginning
+000107 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer
+000108 0fe0                      	ADD ZL, R16				; ADD R16 value to low z-pointer again
+000109 95c8                      	LPM						; Load the value pointed to by Z, store it in R0
+00010a 2d00                      	MOV R16, R0				; Load the value for R0 into R16
+00010b df87                      	RCALL OUTCHAR			; Call the OUTCHAR subroutine to output this character to the display
 00010c 9518                      	RETI					; Return from the interrupt
                                  
+                                 LASERCHARSELECT:
+00010d 3f8f                      	CPI R24, 0xFF			; Compare Shift Register to 0xFF
+00010e f019                      	BREQ LASERSHIFTSELECT	; If Shift Register = 0xFF, branch to LASERSHIFTSELECT
+00010f e2f2                      	LDI ZH, high(TABLEA*2)	; Set Z-pointer to TABLEA beginning
+000110 e0e0                      	LDI ZL, low(TABLEA*2)	; Set Z-pointer to TABLEA beginning
+000111 c003                      	RJMP LASERSELECT		; Jump to LASERSELECT
+                                 LASERSHIFTSELECT:
+000112 e2fb                      	LDI ZH, high(TABLES*2)	; Set Z-pointer to TABLES beginning
+000113 e0e0                      	LDI ZL, low(TABLES*2)	; Set Z-pointer to TABLES beginning
+000114 c000                      	RJMP LASERSELECT		; Jump to LASERSELECT
+                                 LASERSELECT:
+000115 3000                      	CPI R16, 0				; Compare R16 with 0
+000116 f041                      	BREQ LASERBUFFERSET		; If R16 == 0, branch to LASERBUFFERSET
+000117 d002                      	RCALL LASERNEXTCHAR		; Advance the Z-pointer to the next character table
+000118 950a                      	DEC R16					; Decrement R16
+000119 cffb                      	RJMP LASERSELECT		; Jump back to top of LASERSELECT
+                                 LASERNEXTCHAR:
+                                 	; ADD 0x80 to Z-pointer to reach the next character table
+00011a 96b0                      	ADIW ZH:ZL, 0x20		; Add 0x20 to the ZL register
+00011b 96b0                      	ADIW ZH:ZL, 0x20		; Add 0x20 to the ZL register
+00011c 96b0                      	ADIW ZH:ZL, 0x20		; Add 0x20 to the ZL register
+00011d 96b0                      	ADIW ZH:ZL, 0x20		; Add 0x20 to the ZL register
+00011e 9508                      	RET						; Return to origin of subroutine call
+                                 LASERBUFFERSET:
+                                 	; Shift the laser character registers
+00011f 2c86                      	MOV R8, R6				; Copy the value in R6 into R8
+000120 2c75                      	MOV R7, R5				; Copy the value in R5 into R7
+000121 2c64                      	MOV R6, R4				; Copy R4 to R6
+000122 2c53                      	MOV R5, R3				; Copy R3 to R5
+000123 2c42                      	MOV R4, R2				; Copy R2 to R4
+000124 2c31                      	MOV R3, R1				; Copy R1 to R3
+000125 2e2f                      	MOV R2, ZH				; Copy ZH to R2
+000126 2e1e                      	MOV R1, ZL				; Copy ZL to R1
+000127 9518                      	RETI					; Return from interrupt
+                                 
+                                 SHIFT:
+000128 9580                      	COM R24					; Complement the R1 (shift) register
+000129 9518                      	RETI					; Return from the interrupt
+                                 
                                  MODE:
-00010d 30a3                      	CPI R26, 3				; Compare R26 to 3
-00010e f011                      	BREQ RESETMODE			; Branch to RESETMODE if MODE = 3
-00010f 95a3                      	INC R26					; Increment the MODE register
-000110 9518                      	RETI					; Return from the interrupt
-                                 
+00012a 30a3                      	CPI R26, 3				; Compare R26 to 3
+00012b f011                      	BREQ RESETMODE			; Branch to RESETMODE if MODE = 3
+00012c 95a3                      	INC R26					; Increment the MODE register
+00012d 9518                      	RETI					; Return from the interrupt
                                  RESETMODE:
-000111 27aa                      	CLR R26					; Clear the MODE register
-000112 9518                      	RETI					; Return from the interrupt
-                                 
-                                 DUMBRET:
-000113 9518                      	RETI					; Return from the interrupt
+00012e 27aa                      	CLR R26					; Clear the MODE register
+00012f 9518                      	RETI					; Return from the interrupt
                                  
                                  ;===================================================================================================
                                  ;TABLES
@@ -1368,443 +1403,494 @@ AVRASM ver. 2.2.6  C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMil
                                  
                                  .org 0x1000					; Set origin to FLASH 0x1000
                                  CHARTABLE:
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(385): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(420): warning: .cseg .db misalignment - padding zero byte
 001000 0041                          .db 'A'					; Store value for 'A'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(386): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(421): warning: .cseg .db misalignment - padding zero byte
 001001 0042                          .db 'B'					; Store value for 'B'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(387): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(422): warning: .cseg .db misalignment - padding zero byte
 001002 0043                          .db 'C'					; Store value for 'C'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(388): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(423): warning: .cseg .db misalignment - padding zero byte
 001003 0044                          .db 'D'					; Store value for 'D'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(389): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(424): warning: .cseg .db misalignment - padding zero byte
 001004 0045                          .db 'E'					; Store value for 'E'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(390): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(425): warning: .cseg .db misalignment - padding zero byte
 001005 0046                          .db 'F'					; Store value for 'F'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(391): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(426): warning: .cseg .db misalignment - padding zero byte
 001006 0047                          .db 'G'					; Store value for 'G'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(392): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(427): warning: .cseg .db misalignment - padding zero byte
 001007 0048                          .db 'H'					; Store value for 'H'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(393): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(428): warning: .cseg .db misalignment - padding zero byte
 001008 0049                          .db 'I'					; Store value for 'I'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(394): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(429): warning: .cseg .db misalignment - padding zero byte
 001009 004a                          .db 'J'					; Store value for 'J'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(395): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(430): warning: .cseg .db misalignment - padding zero byte
 00100a 004b                          .db 'K'					; Store value for 'K'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(396): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(431): warning: .cseg .db misalignment - padding zero byte
 00100b 004c                          .db 'L'					; Store value for 'L'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(397): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(432): warning: .cseg .db misalignment - padding zero byte
 00100c 004d                          .db 'M'					; Store value for 'M'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(398): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(433): warning: .cseg .db misalignment - padding zero byte
 00100d 004e                          .db 'N'					; Store value for 'N'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(399): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(434): warning: .cseg .db misalignment - padding zero byte
 00100e 004f                          .db 'O'					; Store value for 'O'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(400): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(435): warning: .cseg .db misalignment - padding zero byte
 00100f 0050                          .db 'P'					; Store value for 'P'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(401): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(436): warning: .cseg .db misalignment - padding zero byte
 001010 0051                          .db 'Q'					; Store value for 'Q'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(402): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(437): warning: .cseg .db misalignment - padding zero byte
 001011 0052                          .db 'R'					; Store value for 'R'
 001012 9508                          RET					    ; Return to origin of subroutine call
                                  
-                                 .org 0x1100                  ; Set origin to FLASH 0x1100
+                                 .org 0x1050                 ; Set origin to FLASH 0x1050
                                  SHIFTTABLE:
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(407): warning: .cseg .db misalignment - padding zero byte
-001100 0053                          .db 'S'					; Store value for 'S'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(408): warning: .cseg .db misalignment - padding zero byte
-001101 0054                          .db 'T'					; Store value for 'T'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(409): warning: .cseg .db misalignment - padding zero byte
-001102 0055                          .db 'U'					; Store value for 'U'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(410): warning: .cseg .db misalignment - padding zero byte
-001103 0056                          .db 'V'					; Store value for 'V'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(411): warning: .cseg .db misalignment - padding zero byte
-001104 0057                          .db 'W'					; Store value for 'W'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(412): warning: .cseg .db misalignment - padding zero byte
-001105 0058                          .db 'X'					; Store value for 'X'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(413): warning: .cseg .db misalignment - padding zero byte
-001106 0059                          .db 'Y'					; Store value for 'Y'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(414): warning: .cseg .db misalignment - padding zero byte
-001107 005a                          .db 'Z'					; Store value for 'Z'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(415): warning: .cseg .db misalignment - padding zero byte
-001108 0030                          .db '0'					; Store value for '0'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(416): warning: .cseg .db misalignment - padding zero byte
-001109 0031                          .db '1'					; Store value for '1'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(417): warning: .cseg .db misalignment - padding zero byte
-00110a 0032                          .db '2'					; Store value for '2'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(418): warning: .cseg .db misalignment - padding zero byte
-00110b 0033                          .db '3'					; Store value for '3'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(419): warning: .cseg .db misalignment - padding zero byte
-00110c 0034                          .db '4'					; Store value for '4'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(420): warning: .cseg .db misalignment - padding zero byte
-00110d 0035                          .db '5'					; Store value for '5'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(421): warning: .cseg .db misalignment - padding zero byte
-00110e 0036                          .db '6'					; Store value for '6'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(422): warning: .cseg .db misalignment - padding zero byte
-00110f 0037                          .db '7'					; Store value for '7'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(423): warning: .cseg .db misalignment - padding zero byte
-001110 0038                          .db '8'					; Store value for '8'
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(424): warning: .cseg .db misalignment - padding zero byte
-001111 0039                          .db '9'					; Store value for '9'
-001112 9508                          RET						; Return to origin of subroutine call
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(442): warning: .cseg .db misalignment - padding zero byte
+001050 0053                          .db 'S'					; Store value for 'S'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(443): warning: .cseg .db misalignment - padding zero byte
+001051 0054                          .db 'T'					; Store value for 'T'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(444): warning: .cseg .db misalignment - padding zero byte
+001052 0055                          .db 'U'					; Store value for 'U'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(445): warning: .cseg .db misalignment - padding zero byte
+001053 0056                          .db 'V'					; Store value for 'V'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(446): warning: .cseg .db misalignment - padding zero byte
+001054 0057                          .db 'W'					; Store value for 'W'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(447): warning: .cseg .db misalignment - padding zero byte
+001055 0058                          .db 'X'					; Store value for 'X'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(448): warning: .cseg .db misalignment - padding zero byte
+001056 0059                          .db 'Y'					; Store value for 'Y'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(449): warning: .cseg .db misalignment - padding zero byte
+001057 005a                          .db 'Z'					; Store value for 'Z'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(450): warning: .cseg .db misalignment - padding zero byte
+001058 0030                          .db '0'					; Store value for '0'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(451): warning: .cseg .db misalignment - padding zero byte
+001059 0031                          .db '1'					; Store value for '1'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(452): warning: .cseg .db misalignment - padding zero byte
+00105a 0032                          .db '2'					; Store value for '2'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(453): warning: .cseg .db misalignment - padding zero byte
+00105b 0033                          .db '3'					; Store value for '3'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(454): warning: .cseg .db misalignment - padding zero byte
+00105c 0034                          .db '4'					; Store value for '4'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(455): warning: .cseg .db misalignment - padding zero byte
+00105d 0035                          .db '5'					; Store value for '5'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(456): warning: .cseg .db misalignment - padding zero byte
+00105e 0036                          .db '6'					; Store value for '6'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(457): warning: .cseg .db misalignment - padding zero byte
+00105f 0037                          .db '7'					; Store value for '7'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(458): warning: .cseg .db misalignment - padding zero byte
+001060 0038                          .db '8'					; Store value for '8'
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(459): warning: .cseg .db misalignment - padding zero byte
+001061 0039                          .db '9'					; Store value for '9'
+001062 9508                          RET						; Return to origin of subroutine call
                                  
-                                 .org 0x1200
+                                 .org 0x1100
                                  TABLEA:
-001200 4002
-001201 1eff
-001202 3dc0
-001203 0040
-001204 8210
-001205 2dff
-001206 0082
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(429): warning: .cseg .db misalignment - padding zero byte
-001207 0011                      	.db 0x02, 0x40, 0xFF, 0x1E, 0xC0, 0x3D, 0x40, 0x00, 0x10, 0x82, 0xFF, 0x2D, 0x82, 0x00, 0x11
-                                 .org 0x1240
+001100 4002
+001101 1eff
+001102 3dc0
+001103 0040
+001104 8210
+001105 2dff
+001106 0082
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(464): warning: .cseg .db misalignment - padding zero byte
+001107 0011                      	.db 0x02, 0x40, 0xFF, 0x1E, 0xC0, 0x3D, 0x40, 0x00, 0x10, 0x82, 0xFF, 0x2D, 0x82, 0x00, 0x11
+                                 .org 0x1140
                                  TABLEB:
-001240 4002
-001241 02ff
-001242 28c0
-001243 3dc0
-001244 3daa
-001245 2896
-001246 0282
-001247 2882
-001248 3d82
-001249 3d6e
-00124a 2850
-00124b 0240
-00124c 1140                      	.db 0x02, 0x40, 0xFF, 0x02, 0xC0, 0x28, 0xC0, 0x3D, 0xAA, 0x3D, 0x96, 0x28, 0x82, 0x02, 0x82, 0x28, 0x82, 0x3D, 0x6E, 0x3D, 0x50, 0x28, 0x40, 0x02, 0x40, 0x11
-                                 .org 0x1280
+001140 4002
+001141 02ff
+001142 28c0
+001143 3dc0
+001144 3daa
+001145 2896
+001146 0282
+001147 2882
+001148 3d82
+001149 3d6e
+00114a 2850
+00114b 0240
+00114c 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(467): warning: .cseg .db misalignment - padding zero byte
+00114d 0011                      	.db 0x02, 0x40, 0xFF, 0x02, 0xC0, 0x28, 0xC0, 0x3D, 0xAA, 0x3D, 0x96, 0x28, 0x82, 0x02, 0x82, 0x28, 0x82, 0x3D, 0x6E, 0x3D, 0x50, 0x28, 0x40, 0x02, 0x40, 0x00, 0x11
+                                 .org 0x1180
                                  TABLEC:
-001280 3dff
-001281 1da0
-001282 02c0
-001283 02a0
-001284 1f58
-001285 3d40
-001286 1158                      	.db 0xFF, 0x3D, 0xA0, 0x1D, 0xC0, 0x02, 0xA0, 0x02, 0x58, 0x1F, 0x40, 0x3D, 0x58, 0x11
-                                 .org 0x12C0
+001180 a03d
+001181 1dff
+001182 02c0
+001183 02a0
+001184 1f58
+001185 3d40
+001186 0058
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(470): warning: .cseg .db misalignment - padding zero byte
+001187 0011                      	.db 0x3D, 0xA0, 0xFF, 0x1D, 0xC0, 0x02, 0xA0, 0x02, 0x58, 0x1F, 0x40, 0x3D, 0x58, 0x00, 0x11
+                                 .org 0x11C0
                                  TABLED:
-0012c0 02ff
-0012c1 0240
-0012c2 28c1
-0012c3 3dc0
-0012c4 3d96
-0012c5 286e
-0012c6 0240
-0012c7 1140                      	.db 0xFF, 0x02, 0x40, 0x02, 0xC1, 0x28, 0xC0, 0x3D, 0x96, 0x3D, 0x6E, 0x28, 0x40, 0x02, 0x40, 0x11
-                                 .org 0x1300
+0011c0 4002
+0011c1 02ff
+0011c2 28c1
+0011c3 3dc0
+0011c4 3d96
+0011c5 286e
+0011c6 0240
+0011c7 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(473): warning: .cseg .db misalignment - padding zero byte
+0011c8 0011                      	.db 0x02, 0x40, 0xFF, 0x02, 0xC1, 0x28, 0xC0, 0x3D, 0x96, 0x3D, 0x6E, 0x28, 0x40, 0x02, 0x40, 0x00, 0x11
+                                 .org 0x1200
                                  TABLEE:
-001300 3dff
-001301 02c0
-001302 02c0
-001303 3d40
-001304 0240
-001305 0240
-001306 2882
-001307 1182                      	.db 0xFF, 0x3D, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x3D, 0x40, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82, 0x11
-                                 .org 0x1340
+001200 c03d
+001201 02ff
+001202 02c0
+001203 3d40
+001204 0240
+001205 0240
+001206 2882
+001207 0082
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(476): warning: .cseg .db misalignment - padding zero byte
+001208 0011                      	.db 0x3D, 0xC0, 0xFF, 0x02, 0xC0, 0x02, 0x40, 0x3D, 0x40, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82, 0x00, 0x11
+                                 .org 0x1240
                                  TABLEF:
-001340 3dff
-001341 02c0
-001342 02c0
-001343 0240
-001344 2882
-001345 1182                      	.db 0xFF, 0x3D, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82, 0x11
-                                 .org 0x1480
+001240 c03d
+001241 02ff
+001242 02c0
+001243 0240
+001244 2882
+001245 0082
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(479): warning: .cseg .db misalignment - padding zero byte
+001246 0011                      	.db 0x3D, 0xC0, 0xFF, 0x02, 0xC0, 0x02, 0x40, 0x02, 0x82, 0x28, 0x82, 0x00, 0x11
+                                 .org 0x1280
                                  TABLEG:
-001480 3eff
-001481 33a4
-001482 0dbf
-001483 02c0
-001484 02a3
-001485 0d5a
-001486 3241
-001487 3e41
-001488 3e58
-001489 247c
-00148a 117b                      	.db 0xFF, 0x3E, 0xA4, 0x33, 0xBF, 0x0D, 0xC0, 0x02, 0xA3, 0x02, 0x5A, 0x0D, 0x41, 0x32, 0x41, 0x3E, 0x58, 0x3E, 0x7C, 0x24, 0x7B, 0x11
-                                 .org 0x14C0
+001280 a43e
+001281 33ff
+001282 0dbf
+001283 02c0
+001284 02a3
+001285 0d5a
+001286 3241
+001287 3e41
+001288 3e58
+001289 247c
+00128a 007b
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(482): warning: .cseg .db misalignment - padding zero byte
+00128b 0011                      	.db 0x3E, 0xA4, 0xFF, 0x33, 0xBF, 0x0D, 0xC0, 0x02, 0xA3, 0x02, 0x5A, 0x0D, 0x41, 0x32, 0x41, 0x3E, 0x58, 0x3E, 0x7C, 0x24, 0x7B, 0x00, 0x11
+                                 .org 0x12C0
                                  TABLEH:
-0014c0 02ff
-0014c1 02c0
-0014c2 0241
-0014c3 3e82
-0014c4 3e82
-0014c5 3ec0
-0014c6 1140                      	.db 0xFF, 0x02, 0xC0, 0x02, 0x41, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0xC0, 0x3E, 0x40, 0x11
-                                 .org 0x1500
+0012c0 c002
+0012c1 02ff
+0012c2 0241
+0012c3 3e82
+0012c4 3e82
+0012c5 3ec0
+0012c6 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(485): warning: .cseg .db misalignment - padding zero byte
+0012c7 0011                      	.db 0x02, 0xC0, 0xFF, 0x02, 0x41, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0xC0, 0x3E, 0x40, 0x00, 0x11
+                                 .org 0x1300
                                  TABLEI:
-001500 02ff
-001501 3ec0
-001502 1fc0
-001503 1fc0
-001504 0240
-001505 3e40
-001506 1140                      	.db 0xFF, 0x02, 0xC0, 0x3E, 0xC0, 0x1F, 0xC0, 0x1F, 0x40, 0x02, 0x40, 0x3E, 0x40, 0x11
-                                 .org 0x1540
+001300 c002
+001301 3eff
+001302 1fc0
+001303 1fc0
+001304 0240
+001305 3e40
+001306 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(488): warning: .cseg .db misalignment - padding zero byte
+001307 0011                      	.db 0x02, 0xC0, 0xFF, 0x3E, 0xC0, 0x1F, 0xC0, 0x1F, 0x40, 0x02, 0x40, 0x3E, 0x40, 0x00, 0x11
+                                 .org 0x1340
                                  TABLEJ:
-001540 3eff
-001541 3ec0
-001542 216f
-001543 0240
-001544 116f                      	.db 0xFF, 0x3E, 0xC0, 0x3E, 0x6F, 0x21, 0x40, 0x02, 0x6F, 0x11
-                                 .org 0x1580
+001340 c03e
+001341 3eff
+001342 216f
+001343 0240
+001344 006f
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(491): warning: .cseg .db misalignment - padding zero byte
+001345 0011                      	.db 0x3E, 0xC0, 0xFF, 0x3E, 0x6F, 0x21, 0x40, 0x02, 0x6F, 0x00, 0x11
+                                 .org 0x1380
                                  TABLEK:
-001580 02ff
-001581 02c0
-001582 3e82
-001583 02c0
+001380 c002
+001381 02ff
+001382 3e82
+001383 02c0
+001384 3e82
+001385 0240
+001386 0282
+001387 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(494): warning: .cseg .db misalignment - padding zero byte
+001388 0011                      	.db 0x02, 0xC0, 0xFF, 0x02, 0x82, 0x3E, 0xC0, 0x02, 0x82, 0x3E, 0x40, 0x02, 0x82, 0x02, 0x40, 0x00, 0x11
+                                 .org 0x13C0
+                                 TABLEL:
+0013c0 c002
+0013c1 02ff
+0013c2 3e40
+0013c3 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(497): warning: .cseg .db misalignment - padding zero byte
+0013c4 0011                      	.db 0x02, 0xC0, 0xFF, 0x02, 0x40, 0x3E, 0x40, 0x00, 0x11
+                                 .org 0x1400
+                                 TABLEM: ; Janky
+001400 4002
+001401 11ff
+001402 20c0
+001403 2e40
+001404 3ebf
+001405 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(500): warning: .cseg .db misalignment - padding zero byte
+001406 0011                      	.db 0x02, 0x40, 0xFF, 0x11, 0xC0, 0x20, 0x40, 0x2E, 0xBF, 0x3E, 0x40, 0x00, 0x11
+                                 .org 0x1440
+                                 TABLEN:
+001440 4002
+001441 02ff
+001442 3ec0
+001443 3e40
+001444 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(503): warning: .cseg .db misalignment - padding zero byte
+001445 0011                      	.db 0x02, 0x40, 0xFF, 0x02, 0xC0, 0x3E, 0x40, 0x3E, 0xC0, 0x00, 0x11
+                                 .org 0x1480
+                                 TABLEO:
+001480 c014
+001481 02ff
+001482 02a0
+001483 145c
+001484 2940
+001485 3e40
+001486 3e5b
+001487 29a0
+001488 14c0
+001489 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(506): warning: .cseg .db misalignment - padding zero byte
+00148a 0011                      	.db 0x14, 0xC0, 0xFF, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x00, 0x11
+                                 .org 0x14C0
+                                 TABLEP:
+0014c0 4002
+0014c1 02ff
+0014c2 3ec0
+0014c3 3ec0
+0014c4 0282
+0014c5 0082
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(509): warning: .cseg .db misalignment - padding zero byte
+0014c6 0011                      	.db 0x02, 0x40, 0xFF, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x00, 0x11
+                                 .org 0x1500
+                                 TABLEQ:
+001500 c014
+001501 02ff
+001502 02a0
+001503 145c
+001504 2940
+001505 3e40
+001506 3e5b
+001507 29a0
+001508 14c0
+001509 00c0
+00150a 28ff
+00150b 3e5a
+00150c 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(512): warning: .cseg .db misalignment - padding zero byte
+00150d 0011                      	.db 0x14, 0xC0, 0xFF, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x00, 0xFF, 0x28, 0x5A, 0x3E, 0x40, 0x00, 0x11
+                                 .org 0x1540
+                                 TABLER:
+001540 4002
+001541 02ff
+001542 3ec0
+001543 3ec0
+001544 0282
+001545 3e82
+001546 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(515): warning: .cseg .db misalignment - padding zero byte
+001547 0011                      	.db 0x02, 0x40, 0xFF, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x3E, 0x40, 0x00, 0x11
+                                 .org 0x1580
+                                 TABLES:
+001580 c03e
+001581 02ff
+001582 02c0
+001583 3e82
 001584 3e82
 001585 0240
-001586 0282
-001587 1140                      	.db 0xFF, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0xC0, 0x02, 0x82, 0x3E, 0x40, 0x02, 0x82, 0x02, 0x40, 0x11
+001586 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(518): warning: .cseg .db misalignment - padding zero byte
+001587 0011                      	.db 0x3E, 0xC0, 0xFF, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40, 0x00, 0x11
                                  .org 0x15C0
-                                 TABLEL:
-0015c0 02ff
-0015c1 02c0
-0015c2 3e40
-0015c3 1140                      	.db 0xFF, 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x11
-                                 .org 0x1600
-                                 TABLEM:
-001600 02ff
-001601 1140
-001602 20c0
-001603 2e40
-001604 3ebf
-001605 1140                      	.db 0xFF, 0x02, 0x40, 0x11, 0xC0, 0x20, 0x40, 0x2E, 0xBF, 0x3E, 0x40, 0x11
-                                 .org 0x1640
-                                 TABLEN:
-001640 02ff
-001641 0240
-001642 3ec0
-001643 3e40
-001644 11c0                      	.db 0xFF, 0x02, 0x40, 0x02, 0xC0, 0x3E, 0x40, 0x3E, 0xC0, 0x11
-                                 .org 0x1680
-                                 TABLEO:
-001680 14ff
-001681 02c0
-001682 02a0
-001683 145c
-001684 2940
-001685 3e40
-001686 3e5b
-001687 29a0
-001688 14c0
-001689 11c0                      	.db 0xFF, 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x11
-                                 .org 0x16C0
-                                 TABLEP:
-0016c0 02ff
-0016c1 0240
-0016c2 3ec0
-0016c3 3ec0
-0016c4 0282
-0016c5 1182                      	.db 0xFF, 0x02, 0x40, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x11
-                                 .org 0x1700
-                                 TABLEQ:
-001700 c014
-001701 a002
-001702 5c02
-001703 4014
-001704 4029
-001705 5b3e
-001706 a03e
-001707 c029
-001708 c014
-001709 ff00
-00170a 5a28
-00170b 403e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(477): warning: .cseg .db misalignment - padding zero byte
-00170c 0011                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x00, 0xFF, 0x28, 0x5A, 0x3E, 0x40, 0x11
-                                 .org 0x1740
-                                 TABLER:
-001740 4002
-001741 c002
-001742 c03e
-001743 823e
-001744 8202
-001745 403e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(480): warning: .cseg .db misalignment - padding zero byte
-001746 0011                      	.db 0x02, 0x40, 0x02, 0xC0, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x3E, 0x40, 0x11
-                                 .org 0x1780
-                                 TABLES:
-001780 c03e
-001781 c002
-001782 8202
-001783 823e
-001784 403e
-001785 4002
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(483): warning: .cseg .db misalignment - padding zero byte
-001786 0011                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40, 0x11
-                                 .org 0x17C0
                                  TABLET:
-0017c0 4021
-0017c1 c021
-0017c2 c002
-0017c3 c03e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(486): warning: .cseg .db misalignment - padding zero byte
-0017c4 0011                      	.db 0x21, 0x40, 0x21, 0xC0, 0x02, 0xC0, 0x3E, 0xC0, 0x11
-                                 .org 0x1800
+0015c0 4021
+0015c1 21ff
+0015c2 02c0
+0015c3 3ec0
+0015c4 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(521): warning: .cseg .db misalignment - padding zero byte
+0015c5 0011                      	.db 0x21, 0x40, 0xFF, 0x21, 0xC0, 0x02, 0xC0, 0x3E, 0xC0, 0x00, 0x11
+                                 .org 0x1600
                                  TABLEU:
-001800 c002
-001801 4002
-001802 403e
-001803 c03e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(489): warning: .cseg .db misalignment - padding zero byte
-001804 0011                      	.db 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0xC0, 0x11
-                                 .org 0x1840
+001600 c002
+001601 02ff
+001602 3e40
+001603 3e40
+001604 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(524): warning: .cseg .db misalignment - padding zero byte
+001605 0011                      	.db 0x02, 0xC0, 0xFF, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0xC0, 0x00, 0x11
+                                 .org 0x1640
                                  TABLEV:
-001840 c002
-001841 4020
-001842 c03e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(492): warning: .cseg .db misalignment - padding zero byte
-001843 0011                      	.db 0x02, 0xC0, 0x20, 0x40, 0x3E, 0xC0, 0x11
-                                 .org 0x1880
+001640 c002
+001641 20ff
+001642 3e40
+001643 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(527): warning: .cseg .db misalignment - padding zero byte
+001644 0011                      	.db 0x02, 0xC0, 0xFF, 0x20, 0x40, 0x3E, 0xC0, 0x00, 0x11
+                                 .org 0x1680
                                  TABLEW:
-001880 c002
-001881 4014
-001882 9b21
-001883 402d
-001884 c03e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(495): warning: .cseg .db misalignment - padding zero byte
-001885 0011                      	.db 0x02, 0xC0, 0x14, 0x40, 0x21, 0x9B, 0x2D, 0x40, 0x3E, 0xC0, 0x11
-                                 .org 0x18C0
+001680 c002
+001681 14ff
+001682 2140
+001683 2d9b
+001684 3e40
+001685 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(530): warning: .cseg .db misalignment - padding zero byte
+001686 0011                      	.db 0x02, 0xC0, 0xFF, 0x14, 0x40, 0x21, 0x9B, 0x2D, 0x40, 0x3E, 0xC0, 0x00, 0x11
+                                 .org 0x16C0
                                  TABLEX:
-0018c0 c002
-0018c1 403e
-0018c2 ff00
-0018c3 4002
-0018c4 c03e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(498): warning: .cseg .db misalignment - padding zero byte
-0018c5 0011                      	.db 0x02, 0xC0, 0x3E, 0x40, 0x00, 0xFF, 0x02, 0x40, 0x3E, 0xC0, 0x11
-                                 .org 0x1900
+0016c0 c002
+0016c1 3eff
+0016c2 0040
+0016c3 02ff
+0016c4 3e40
+0016c5 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(533): warning: .cseg .db misalignment - padding zero byte
+0016c6 0011                      	.db 0x02, 0xC0, 0xFF, 0x3E, 0x40, 0x00, 0xFF, 0x02, 0x40, 0x3E, 0xC0, 0x00, 0x11
+                                 .org 0x1700
                                  TABLEY:
-001900 c002
-001901 8220
-001902 4020
-001903 8220
-001904 c03e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(501): warning: .cseg .db misalignment - padding zero byte
-001905 0011                      	.db 0x02, 0xC0, 0x20, 0x82, 0x20, 0x40, 0x20, 0x82, 0x3E, 0xC0, 0x11
-                                 .org 0x1940
+001700 c002
+001701 20ff
+001702 2082
+001703 2040
+001704 3e82
+001705 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(536): warning: .cseg .db misalignment - padding zero byte
+001706 0011                      	.db 0x02, 0xC0, 0xFF, 0x20, 0x82, 0x20, 0x40, 0x20, 0x82, 0x3E, 0xC0, 0x00, 0x11
+                                 .org 0x1740
                                  TABLEZ:
-001940 c002
-001941 c03e
-001942 4002
-001943 403e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(504): warning: .cseg .db misalignment - padding zero byte
-001944 0011                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x11
-                                 .org 0x1980
+001740 c002
+001741 3eff
+001742 02c0
+001743 3e40
+001744 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(539): warning: .cseg .db misalignment - padding zero byte
+001745 0011                      	.db 0x02, 0xC0, 0xFF, 0x3E, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x00, 0x11
+                                 .org 0x1780
                                  TABLE0:
-001980 c014
-001981 a002
-001982 5c02
-001983 4014
-001984 4029
-001985 5b3e
-001986 a03e
-001987 c029
-001988 c014
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(507): warning: .cseg .db misalignment - padding zero byte
-001989 0011                      	.db 0x14, 0xC0, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x11
-                                 .org 0x19C0
+001780 c014
+001781 02ff
+001782 02a0
+001783 145c
+001784 2940
+001785 3e40
+001786 3e5b
+001787 29a0
+001788 14c0
+001789 00c0
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(542): warning: .cseg .db misalignment - padding zero byte
+00178a 0011                      	.db 0x14, 0xC0, 0xFF, 0x02, 0xA0, 0x02, 0x5C, 0x14, 0x40, 0x29, 0x40, 0x3E, 0x5B, 0x3E, 0xA0, 0x29, 0xC0, 0x14, 0xC0, 0x00, 0x11
+                                 .org 0x17C0
                                  TABLE1:
-0019c0 c01f
-0019c1 1fff
-0019c2 0040
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(510): warning: .cseg .db misalignment - padding zero byte
-0019c3 0011                      	.db 0x1F, 0xC0, 0xFF, 0x1F, 0x40, 0x00, 0x11
-                                 .org 0x2000
+0017c0 c01f
+0017c1 1fff
+0017c2 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(545): warning: .cseg .db misalignment - padding zero byte
+0017c3 0011                      	.db 0x1F, 0xC0, 0xFF, 0x1F, 0x40, 0x00, 0x11
+                                 .org 0x1800
                                  TABLE2:
-002000 c002
-002001 3eff
-002002 3ec0
-002003 0282
-002004 0282
-002005 3e40
-002006 0040
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(513): warning: .cseg .db misalignment - padding zero byte
-002007 0011                      	.db 0x02, 0xC0, 0xFF, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x02, 0x40, 0x3E, 0x40, 0x00, 0x11
-                                 .org 0x2040
+001800 c002
+001801 3eff
+001802 3ec0
+001803 0282
+001804 0282
+001805 3e40
+001806 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(548): warning: .cseg .db misalignment - padding zero byte
+001807 0011                      	.db 0x02, 0xC0, 0xFF, 0x3E, 0xC0, 0x3E, 0x82, 0x02, 0x82, 0x02, 0x40, 0x3E, 0x40, 0x00, 0x11
+                                 .org 0x1840
                                  TABLE3:
-002040 c002
-002041 3eff
-002042 3ec0
-002043 1482
-002044 3e82
-002045 3e82
-002046 0240
-002047 0040
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(516): warning: .cseg .db misalignment - padding zero byte
-002048 0011                      	.db 0x02, 0xC0, 0xFF, 0x3E, 0xC0, 0x3E, 0x82, 0x14, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40, 0x00, 0x11
-                                 .org 0x2080
+001840 c002
+001841 3eff
+001842 3ec0
+001843 1482
+001844 3e82
+001845 3e82
+001846 0240
+001847 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(551): warning: .cseg .db misalignment - padding zero byte
+001848 0011                      	.db 0x02, 0xC0, 0xFF, 0x3E, 0xC0, 0x3E, 0x82, 0x14, 0x82, 0x3E, 0x82, 0x3E, 0x40, 0x02, 0x40, 0x00, 0x11
+                                 .org 0x1880
                                  TABLE4:
-002080 6e3e
-002081 6e02
-002082 c036
-002083 4036
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(519): warning: .cseg .db misalignment - padding zero byte
-002084 0011                      	.db 0x3E, 0x6E, 0x02, 0x6E, 0x36, 0xC0, 0x36, 0x40, 0x11
-                                 .org 0x20C0
+001880 6e3e
+001881 02ff
+001882 366e
+001883 36c0
+001884 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(554): warning: .cseg .db misalignment - padding zero byte
+001885 0011                      	.db 0x3E, 0x6E, 0xFF, 0x02, 0x6E, 0x36, 0xC0, 0x36, 0x40, 0x00, 0x11
+                                 .org 0x18C0
                                  TABLE5:
-0020c0 c03e
-0020c1 c002
-0020c2 8902
-0020c3 893e
-0020c4 5d3e
-0020c5 4031
-0020c6 4011
-0020c7 5c02
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(522): warning: .cseg .db misalignment - padding zero byte
-0020c8 0011                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x89, 0x3E, 0x89, 0x3E, 0x5D, 0x31, 0x40, 0x11, 0x40, 0x02, 0x5C, 0x11
-                                 .org 0x2100
-                                 TABLE6:
-002100 c03e
-002101 c002
-002102 4002
-002103 403e
-002104 823e
-002105 8202
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(525): warning: .cseg .db misalignment - padding zero byte
-002106 0011                      	.db 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0x82, 0x02, 0x82, 0x11
-                                 .org 0x2140
+0018c0 c03e
+0018c1 02ff
+0018c2 02c0
+0018c3 3e89
+0018c4 3e89
+0018c5 315d
+0018c6 1140
+0018c7 0240
+0018c8 005c
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(557): warning: .cseg .db misalignment - padding zero byte
+0018c9 0011                      	.db 0x3E, 0xC0, 0xFF, 0x02, 0xC0, 0x02, 0x89, 0x3E, 0x89, 0x3E, 0x5D, 0x31, 0x40, 0x11, 0x40, 0x02, 0x5C, 0x00, 0x11
+                                 .org 0x1900
+                                 TABLE6: ; Broken past here
+001900 c03e
+001901 02ff
+001902 02c0
+001903 3e40
+001904 3e40
+001905 0282
+001906 0082
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(560): warning: .cseg .db misalignment - padding zero byte
+001907 0011                      	.db 0x3E, 0xC0, 0xFF, 0x02, 0xC0, 0x02, 0x40, 0x3E, 0x40, 0x3E, 0x82, 0x02, 0x82, 0x00, 0x11
+                                 .org 0x1940
                                  TABLE7:
-002140 c002
-002141 c03e
-002142 4002
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(528): warning: .cseg .db misalignment - padding zero byte
-002143 0011                      	.db 0x02, 0xC0, 0x3E, 0xC0, 0x02, 0x40, 0x11
-                                 .org 0x2180
+001940 c002
+001941 3eff
+001942 02c0
+001943 0040
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(563): warning: .cseg .db misalignment - padding zero byte
+001944 0011                      	.db 0x02, 0xC0, 0xFF, 0x3E, 0xC0, 0x02, 0x40, 0x00, 0x11
+                                 .org 0x1980
                                  TABLE8:
-002180 8202
-002181 5702
-002182 400f
-002183 4032
-002184 583e
-002185 aa3e
-002186 c033
-002187 c00f
-002188 aa02
-002189 8202
-00218a 823e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(531): warning: .cseg .db misalignment - padding zero byte
-00218b 0011                      	.db 0x02, 0x82, 0x02, 0x57, 0x0F, 0x40, 0x32, 0x40, 0x3E, 0x58, 0x3E, 0xAA, 0x33, 0xC0, 0x0F, 0xC0, 0x02, 0xAA, 0x02, 0x82, 0x3E, 0x82, 0x11
-                                 .org 0x21C0
+001980 8202
+001981 02ff
+001982 0f57
+001983 3240
+001984 3e40
+001985 3e58
+001986 33aa
+001987 0fc0
+001988 02c0
+001989 02aa
+00198a 3e82
+00198b 0082
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(566): warning: .cseg .db misalignment - padding zero byte
+00198c 0011                      	.db 0x02, 0x82, 0xFF, 0x02, 0x57, 0x0F, 0x40, 0x32, 0x40, 0x3E, 0x58, 0x3E, 0xAA, 0x33, 0xC0, 0x0F, 0xC0, 0x02, 0xAA, 0x02, 0x82, 0x3E, 0x82, 0x00, 0x11
+                                 .org 0x19C0
                                  TABLE9:
-0021c0 403e
-0021c1 c03e
-0021c2 c002
-0021c3 8202
-0021c4 823e
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(534): warning: .cseg .db misalignment - padding zero byte
-0021c5 0011                      	.db 0x3E, 0x40, 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82, 0x11
-                                 .org 0x2200
-                                 TABLESTAR: ; Character table for the test pattern (square for now)
-002200 01ff
-002201 0101
-002202 fefe
-002203 fefe
-002204 0101
-002205 0001
-C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(537): warning: .cseg .db misalignment - padding zero byte
+0019c0 403e
+0019c1 3eff
+0019c2 02c0
+0019c3 02c0
+0019c4 3e82
+0019c5 0082
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(569): warning: .cseg .db misalignment - padding zero byte
+0019c6 0011                      	.db 0x3E, 0x40, 0xFF, 0x3E, 0xC0, 0x02, 0xC0, 0x02, 0x82, 0x3E, 0x82, 0x00, 0x11
+                                 .org 0x2000
+                                 TABLESTAR:  ; Character table for the test pattern (square for now)
+002000 0101
+002001 01ff
+002002 fefe
+002003 fefe
+002004 0101
+002005 0001
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(572): warning: .cseg .db misalignment - padding zero byte
+002006 0011                      	.db 0x01, 0x01, 0xFF, 0x01, 0xFE, 0xFE, 0xFE, 0xFE, 0x01, 0x01, 0x01, 0x00, 0x11
+                                 .org 0x2040
+                                 TABLEBLANK: ; Table for a blank character
+C:\Users\Morgan Walkup\Documents\GitHub\ComputerSystems\CSMilestone2\CSMilestone2\main.asm(575): warning: .cseg .db misalignment - padding zero byte
 
 
 RESOURCE USE INFORMATION
@@ -1822,40 +1908,40 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega328P" register use summary:
-x  :   0 y  :   0 z  :   0 r0 :   4 r1 :   3 r2 :   3 r3 :   3 r4 :   3 
-r5 :   3 r6 :   3 r7 :   3 r8 :   3 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  27 r17:  13 r18:  12 r19:  24 r20:   0 
-r21:   4 r22:   4 r23:   4 r24:   3 r25:   2 r26:   9 r27:   0 r28:   0 
-r29:   0 r30:  15 r31:   7 
+x  :   0 y  :   0 z  :   0 r0 :   4 r1 :   5 r2 :   5 r3 :   5 r4 :   5 
+r5 :   5 r6 :   5 r7 :   4 r8 :   4 r9 :   0 r10:   0 r11:   0 r12:   0 
+r13:   0 r14:   0 r15:   0 r16:  29 r17:  13 r18:  12 r19:  24 r20:   0 
+r21:   4 r22:   4 r23:   4 r24:   4 r25:   2 r26:  10 r27:   0 r28:   0 
+r29:   0 r30:  22 r31:  14 
 Registers used: 21 out of 35 (60.0%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   5 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   5 adiw  :   4 and   :   0 
 andi  :   1 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :  11 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :  15 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   7 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   6 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :  26 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :  15 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   2 cp    :   0 cpc   :   0 
-cpi   :  12 cpse  :   0 dec   :   6 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :  15 cpse  :   0 dec   :   7 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   5 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  42 lds   :   0 lpm   :  12 lsl   :   0 
-lsr   :   0 mov   :  20 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
+ld    :   0 ldd   :   0 ldi   :  46 lds   :   0 lpm   :  12 lsl   :   0 
+lsr   :   0 mov   :  28 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :  16 or    :   0 ori   :   0 out   :  15 pop   :   0 
-push  :   0 rcall :  29 ret   :   9 reti  :   7 rjmp  :  18 rol   :   0 
+push  :   0 rcall :  30 ret   :  10 reti  :   8 rjmp  :  20 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :  21 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   1 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   2 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 24 out of 113 (21.2%)
+Instructions used: 25 out of 113 (22.1%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00440e    556    600   1156   32768   3.5%
+[.cseg] 0x000000 0x004082    612    666   1278   32768   3.9%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
-Assembly complete, 0 errors, 58 warnings
+Assembly complete, 0 errors, 74 warnings
