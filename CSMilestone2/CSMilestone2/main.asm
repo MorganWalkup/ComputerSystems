@@ -39,14 +39,14 @@ INITIALIZE:
 	CBI PORTB, 5			; Clear laser control pin (laser off)
 
 	; Set up Potentiometer
-	LDI R16, 0x25
+	/*LDI R16, 0x25
 	STS ADMUX, R27
 
 	LDI R16, 0xE2
 	STS ADCSRA, R27
 
 	LDI R16, 0x00
-	STS ADCSRB, R27
+	STS ADCSRB, R27*/
 
 	; Set up LCD
 	SBI PORTB, 3			; Set PortB, bit 3 to select LCD
@@ -264,7 +264,8 @@ LP1:DEC R21					; Decrement R21
 
 LASERDELAY:
 	LDI R23, 2				; Load 2 into R23
-LR3:LDS R22, ADCH			; Load 27 into R22
+;LR3:LDS R22, ADCH			; Load 27 into R22
+LR3:LDI R22, 27				; Load 27 into R22
 LR2:LDI R21, 255			; Load 255 into R21
 LR1:DEC R21					; Decrement R21
 	BRNE LR1				; Branch to LP1 if R21 != 0
